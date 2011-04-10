@@ -1477,9 +1477,9 @@ Shadow=0</a:DisplayPreferences>
 <c:Symbols>
 <o:ReferenceSymbol Id="o5">
 <a:CreationDate>1302274317</a:CreationDate>
-<a:ModificationDate>1302351183</a:ModificationDate>
-<a:Rect>((-5940,-4666), (2773,10914))</a:Rect>
-<a:ListOfPoints>((-5940,-4666),(1507,10914))</a:ListOfPoints>
+<a:ModificationDate>1302360177</a:ModificationDate>
+<a:Rect>((-5940,-4666), (2886,10839))</a:Rect>
+<a:ListOfPoints>((-5940,-4666),(1732,10839))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -1658,9 +1658,9 @@ CARD 0 新宋体,8,N</a:FontList>
 </o:ReferenceSymbol>
 <o:ReferenceSymbol Id="o33">
 <a:CreationDate>1302351108</a:CreationDate>
-<a:ModificationDate>1302351183</a:ModificationDate>
-<a:Rect>((9197,4200), (15197,9750))</a:Rect>
-<a:ListOfPoints>((14362,4200),(9900,9750))</a:ListOfPoints>
+<a:ModificationDate>1302360177</a:ModificationDate>
+<a:Rect>((9306,4200), (15306,9675))</a:Rect>
+<a:ListOfPoints>((14362,4200),(10125,9675))</a:ListOfPoints>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -1744,8 +1744,8 @@ TableComment 0 新宋体,8,N</a:FontList>
 </o:TableSymbol>
 <o:TableSymbol Id="o7">
 <a:CreationDate>1302273840</a:CreationDate>
-<a:ModificationDate>1302351183</a:ModificationDate>
-<a:Rect>((1221,8962), (13683,14860))</a:Rect>
+<a:ModificationDate>1302360177</a:ModificationDate>
+<a:Rect>((1446,8887), (13908,14785))</a:Rect>
 <a:LineColor>12615680</a:LineColor>
 <a:FillColor>16570034</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
