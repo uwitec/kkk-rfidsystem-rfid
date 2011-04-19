@@ -1,0 +1,41 @@
+use rfiddb
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('device_user') and o.name = 'FK_USER_DEVICE')
+alter table device_user
+   drop constraint FK_USER_DEVICE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('user_detail') and o.name = 'FK_USER_DETAIL')
+alter table user_detail
+   drop constraint FK_USER_DETAIL
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('user_role') and o.name = 'FK_USERS_ROLE')
+alter table user_role
+   drop constraint FK_USERS_ROLE
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('users')
+            and   type = 'U')
+   drop table users
+go
+
+/*==============================================================*/
+/* Table: users                                                 */
+/*==============================================================*/
+create table users (
+   id                   bigint identity(1,1) not null,
+   userid               bigint               not null unique,
+   login_Name           varchar(64)          not null unique,
+   login_password       varchar(64)          not null
+)
+go
