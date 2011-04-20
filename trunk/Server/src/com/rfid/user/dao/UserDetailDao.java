@@ -32,4 +32,8 @@ public interface UserDetailDao  extends GenericDao<UserDetail,Long>{
 
 	public void attachClean(UserDetail instance);
 
+	public List findByLoginNamePassWord(String loginName, String passWord);
+
+	public List findByUserId(Long userId);
+
 }

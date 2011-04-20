@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.rfid.user.vo.UserDetailVo;
+
 /**
  * UserDetail entity. @author MyEclipse Persistence Tools
  */
@@ -20,7 +22,6 @@ import javax.persistence.UniqueConstraint;
 public class UserDetail implements java.io.Serializable {
 
 	// Fields
-
 	private Long id;
 	private Users users;
 	private String userName;
@@ -64,7 +65,7 @@ public class UserDetail implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId", unique = true, nullable = false)
+	@JoinColumn(name = "userid",referencedColumnName="userid", unique = true, nullable = false)
 	public Users getUsers() {
 		return this.users;
 	}
@@ -118,4 +119,22 @@ public class UserDetail implements java.io.Serializable {
 		this.connection = connection;
 	}
 
+	public UserDetailVo toUserDetailVo(){
+		UserDetailVo vo = new UserDetailVo();
+//		private Long id;
+		vo.setId(getId());
+//		private String userName;
+		vo.setUserName(getUserName());
+//		private Timestamp birthday;
+		vo.setBirthday(getBirthday());
+//		private String userAddress;
+		vo.setUserAddress(getUserAddress());
+//		private Timestamp registerTime;
+		vo.setRegisterTime(getRegisterTime());
+//		private String connection;
+		vo.setConnection(getConnection());
+		
+		vo.setUsersVo(getUsers().toUsersVO());
+		return vo;
+	}
 }

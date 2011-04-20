@@ -8,9 +8,9 @@ public class UserWebServiceImpl implements UserWebService {
 
 	UserServer userServer;
 	
-	public UsersVo getUserByLoginNamePassWord(String loginName, String passWord) {
+	public UsersVo getUserByLoginNamePassWord(String loginName, String passWord) throws Exception {
 		// TODO Auto-generated method stub
-		UsersVo vo = userServer.getUsersByLoginName(loginName);
+		UsersVo vo = userServer.getUsersByLoginNamePassWord(loginName,passWord);
 		if(vo==null)
 			return null;
 		else
@@ -25,7 +25,7 @@ public class UserWebServiceImpl implements UserWebService {
 		this.userServer = userServer;
 	}
 
-	public boolean isLoginUser(String loginName, String passWord) {
+	public boolean isLoginUser(String loginName, String passWord) throws Exception {
 		// TODO Auto-generated method stub
 		UsersVo vo = userServer.getUsersByLoginNamePassWord(loginName, passWord);
 		if(vo==null)

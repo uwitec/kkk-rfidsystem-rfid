@@ -196,4 +196,36 @@ public class UserDetailDaoImpl extends HibernateGenericDao<UserDetail, Long>
 	public static UserDetailDao getFromApplicationContext(ApplicationContext ctx) {
 		return (UserDetailDao) ctx.getBean("UserDetailDAO");
 	}
+
+	public List findByLoginNamePassWord(String loginName, String passWord) {
+		log.debug("finding UserDetail instance with property: loginName"
+				+ ", value: " + loginName 
+				+";passWord, value: " + passWord);
+		try {
+			String queryString = "select ud " +
+					"from UserDetail as ud,Users as u " +
+					"where u.loginName = ? " +
+						"and u.loginPassword = ? " +
+						"and u.userid = ud.users.userid";
+			return getHibernateTemplate().find(queryString, new Object[]{loginName,passWord});
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+	public List findByUserId(Long userId) {
+		log.debug("finding UserDetail instance with property: userId"
+				+ ", value: " + userId);
+		try {
+			String queryString = "select ud " +
+					"from UserDetail as ud,Users as u " +
+					"where u.userid = ? " +
+						"and u.userid = ud.users.userid";
+			return getHibernateTemplate().find(queryString,userId);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 }
