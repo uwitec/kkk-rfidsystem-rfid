@@ -1,10 +1,13 @@
 package com.rfid.server.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.rfid.test.common.MyLazyTestCase;
 import com.rfid.test.common.SpringBeanUtils;
+import com.rfid.user.server.RolesServer;
 import com.rfid.user.server.UserServer;
+import com.rfid.user.vo.RolesVo;
 import com.rfid.user.vo.UserDetailVo;
 import com.rfid.user.vo.UsersVo;
 
@@ -43,8 +46,17 @@ public class UserServerTest extends MyLazyTestCase{
 		assertTrue(list.size()>0);
 	}
 
-	public void testRegUsers(){
-		
+	public void testRegUsers() throws Exception{
+//		UserServer server = (UserServer)SpringBeanUtils.getBean("userServer");
+//		UsersVo vo = new UsersVo();
+//		vo.setLoginName("lyj");
+//		vo.setLoginPassword("lyj");
+//		List<RolesVo> userRoles = new ArrayList();
+//		RolesServer roleServer = (RolesServer)SpringBeanUtils.getBean("rolesServer");
+//		RolesVo roleVo = roleServer.getRoleByRoleName(roleName)
+//		userRoles.add();
+//		vo.setUserRoles(userRoles);
+//		boolean b = server.regUsers(vo);
 	}
 	
 

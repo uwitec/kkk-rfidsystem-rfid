@@ -1,23 +1,39 @@
 package com.rfid.user.server.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.rfid.common.constants.PoTools;
 import com.rfid.common.constants.EnumConstant.PoType;
+import com.rfid.user.constants.UserEnumConstant.RoleTpyeName;
 import com.rfid.user.dao.UserDetailDao;
 import com.rfid.user.dao.UsersDao;
+import com.rfid.user.po.Roles;
 import com.rfid.user.po.UserDetail;
+import com.rfid.user.po.UserRole;
 import com.rfid.user.po.Users;
+import com.rfid.user.server.RolesServer;
 import com.rfid.user.server.UserServer;
+import com.rfid.user.vo.RolesVo;
 import com.rfid.user.vo.UserDetailVo;
 import com.rfid.user.vo.UsersVo;
+import com.rfid.user.vo.VoToPoTools;
 
 public class UserServerImpl implements UserServer {
 
 	private UsersDao usersDao;
 	private UserDetailDao userDetailDao;
 	
+	private RolesServer roleServer;
+	
+	public RolesServer getRoleServer() {
+		return roleServer;
+	}
+	public void setRoleServer(RolesServer roleServer) {
+		this.roleServer = roleServer;
+	}
 	public UserDetailDao getUserDetailDao() {
 		return userDetailDao;
 	}
@@ -77,6 +93,20 @@ public class UserServerImpl implements UserServer {
 		user.setUserid(PoTools.getPoId(PoType.UserType));
 		user.setLoginName(userVo.getLoginName());
 		user.setLoginPassword(userVo.getLoginPassword());
+		//给以默认角色
+		if(user.getUserRoles() == null || user.getUserRoles().size()==0)
+			throw new Exception("缺少用户角色设定");
+		List<RolesVo> roleVos = userVo.getUserRoles();
+		Set<UserRole> userRoles = new HashSet<UserRole>(0);
+		for(RolesVo r : roleVos){
+			UserRole ur = new UserRole();
+			ur.setUsers(user);
+			Roles role = VoToPoTools.toRoles(r);
+			ur.setRoles(role);
+			userRoles.add(ur);
+		}
+		user.setUserRoles(userRoles);
+		
 		try{
 			usersDao.save(user);
 		}catch(Exception ex){
@@ -87,7 +117,10 @@ public class UserServerImpl implements UserServer {
 	}
 	
 	public boolean hasUserByLoginName(String loginName){
-		Users user = (Users) usersDao.findByLoginName((String)loginName);
+		List list = usersDao.findByLoginName((String)loginName);
+		if(list == null || list.size()==0)
+			return false;
+		Users user = (Users) list.get(0);
 		if(user == null)
 			return false;
 		else

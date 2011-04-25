@@ -7,4 +7,6 @@
 	default-autowire="byName">
 
 	<bean id="userServer" class="com.rfid.user.server.impl.UserServerImpl" />
+	
+	<bean id="rolesServer" class="com.rfid.user.server.impl.RolesServerImpl" />
 </beans>
