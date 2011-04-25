@@ -7,11 +7,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.rfid.device.vo.StatusVo;
 
 /**
  * Status entity. @author MyEclipse Persistence Tools
@@ -70,7 +74,7 @@ public class Status implements java.io.Serializable {
 		this.statusId = statusId;
 	}
 
-	@Column(name = "scription", length = 1)
+	@Column(name = "scription")
 	public String getScription() {
 		return this.scription;
 	}
@@ -97,4 +101,17 @@ public class Status implements java.io.Serializable {
 		this.deviceStatuses = deviceStatuses;
 	}
 
+	@Transient
+	public StatusVo toStatusVo(){
+		StatusVo vo = new StatusVo();
+		if(this.getId()!=null)
+			vo.setId(this.getId());
+		if(this.getLevel()!=null)
+			vo.setLevel(this.getLevel());
+		if(this.getScription()!=null)
+			vo.setScription(this.getScription());
+		if(this.getStatusId()!=null && this.getStatusId()!=0)
+			vo.setStatusId(this.getStatusId());
+		return vo;
+	}
 }

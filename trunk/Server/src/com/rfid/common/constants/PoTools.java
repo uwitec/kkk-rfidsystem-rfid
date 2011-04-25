@@ -14,7 +14,7 @@ public class PoTools {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
 		String dateStr = dateFormat.format(date);
-		//获取后三位随机数
+		//获取后2位随机数
 		double random = Math.random()*100;
 		String randomStr = Double.toString(random);
 		String randomNum = randomStr.substring(0, 2);

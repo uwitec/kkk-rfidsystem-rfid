@@ -1,6 +1,9 @@
 package com.rfid.device.po;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +15,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.rfid.device.vo.DeviceVo;
+import com.rfid.device.vo.StatusVo;
+import com.rfid.user.po.Roles;
+import com.rfid.user.po.UserRole;
+import com.rfid.user.po.Users;
+import com.rfid.user.vo.RolesVo;
+import com.rfid.user.vo.UsersVo;
 
 /**
  * Device entity. @author MyEclipse Persistence Tools
@@ -95,12 +106,39 @@ public class Device implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "device")
+	
 	public Set<DeviceDetail> getDeviceDetails() {
 		return this.deviceDetails;
 	}
 
 	public void setDeviceDetails(Set<DeviceDetail> deviceDetails) {
 		this.deviceDetails = deviceDetails;
+	}
+
+	public DeviceVo toDeviceVo() {
+		// TODO Auto-generated method stub
+		DeviceVo vo = new DeviceVo();
+		if(this.getDeviceId()!=null)
+			vo.setDeviceId(this.getDeviceId());
+		if(this.getDeviceStatuses().isEmpty() && this.getDeviceStatuses().size()>0){
+			StatusVo statusVo = (StatusVo)this.getDeviceStatuses().toArray()[0];
+			vo.setStatusVo(statusVo);
+		}
+		if(this.getDeviceUsers().isEmpty() && this.getDeviceUsers().size()>0){
+			Iterator it = this.getDeviceUsers().iterator();
+			List<UsersVo> users = new ArrayList<UsersVo>();
+			while(it.hasNext()){
+				DeviceUser du = (DeviceUser)it.next();
+				Users u = du.getUsers();
+				users.add(u.toUsersVO());
+			}
+			vo.setUsersVo(users);
+		}
+		if(this.getId()!=null)
+			vo.setId(this.getId());
+		if(this.getMonitorEnable()!=null)
+			vo.setMonitorEnable(this.getMonitorEnable());
+		return vo;
 	}
 
 }

@@ -45,7 +45,7 @@ public interface UserServer {
 	/**
 	 * 判断是否存在此用户名
 	 * @param loginName 用户名
-	 * @return 存在与否
+	 * @return 存在与否.存在返回true 不存在返回false
 	 */
 	public boolean hasUserByLoginName(String loginName);
 	

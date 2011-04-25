@@ -23,4 +23,5 @@
 
 	<!-- server user -->
 	<import resource="applicationContext-user-server.xml" />
+	<import resource="applicationContext-device-server.xml" />
 </beans>

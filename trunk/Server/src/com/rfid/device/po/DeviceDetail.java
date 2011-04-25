@@ -5,11 +5,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.rfid.device.vo.DeviceDetailVo;
 
 /**
  * DeviceDetail entity. @author MyEclipse Persistence Tools
@@ -61,7 +65,7 @@ public class DeviceDetail implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "deviceId")
+	@JoinColumn(name = "deviceId",referencedColumnName="deviceId")
 	public Device getDevice() {
 		return this.device;
 	}
@@ -124,4 +128,25 @@ public class DeviceDetail implements java.io.Serializable {
 		this.deviceNum = deviceNum;
 	}
 
+	@Transient
+	public DeviceDetailVo toDeviceDetailVo(){
+		DeviceDetailVo vo = new DeviceDetailVo();
+		if(this.getBuyer()!=null)
+			vo.setBuyer(this.getBuyer());
+		if(this.getDevice()!=null)
+			vo.setDeviceVo(this.getDevice().toDeviceVo());
+		if(this.getDeviceName()!=null)
+			vo.setDeviceName(this.getDeviceName());
+		if(this.getDeviceNum()!=null)
+			vo.setDeviceNum(this.getDeviceNum());
+		if(this.getId()!=null)
+			vo.setId(this.getId());
+		if(this.getManufactory()!=null)
+			vo.setManufactory(this.getManufactory());
+		if(this.getPrice()!=null)
+			vo.setPrice(this.getPrice());
+		if(this.getPurchaseDate()!=null)
+			vo.setPurchaseDate(this.getPurchaseDate());
+		return vo;
+	}
 }

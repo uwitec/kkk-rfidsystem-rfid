@@ -68,7 +68,7 @@ public class DeviceStatus implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "current_StatusId", nullable = false)
+	@JoinColumn(name = "current_StatusId",referencedColumnName="statusId", nullable = false)
 	public Status getStatus() {
 		return this.status;
 	}
@@ -78,7 +78,7 @@ public class DeviceStatus implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "deviceId", nullable = false)
+	@JoinColumn(name = "deviceId",referencedColumnName="deviceId", nullable = false)
 	public Device getDevice() {
 		return this.device;
 	}
