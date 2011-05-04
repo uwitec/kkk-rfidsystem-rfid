@@ -18,7 +18,6 @@ public class UsersVo {
 	
 	public UsersVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public UsersVo(Long id, Long userid, String loginName,

@@ -189,4 +189,9 @@ public class DeviceStatusDaoImpl extends HibernateGenericDao<DeviceStatus, Long>
 			ApplicationContext ctx) {
 		return (DeviceStatusDao) ctx.getBean("DeviceStatusDAO");
 	}
+
+	public DeviceStatus findLastStatus(Long deviceId) {
+		
+		return null;
+	}
 }

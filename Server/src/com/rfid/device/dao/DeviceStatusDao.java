@@ -30,4 +30,5 @@ public interface DeviceStatusDao extends GenericDao<DeviceStatus,Long>{
 
 	public void attachClean(DeviceStatus instance);
 
+	public DeviceStatus findLastStatus(Long deviceId);
 }

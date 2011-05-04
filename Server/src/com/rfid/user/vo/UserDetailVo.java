@@ -15,7 +15,6 @@ public class UserDetailVo {
 	private String connection;
 	public UserDetailVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public UserDetailVo(UsersVo usersVo, Long id, String userName,

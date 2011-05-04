@@ -15,7 +15,6 @@ public class DeviceVo {
 	
 	public DeviceVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public DeviceVo(Long id, Long deviceId, Integer monitorEnable,
 			List<UsersVo> usersVo, StatusVo statusVo) {

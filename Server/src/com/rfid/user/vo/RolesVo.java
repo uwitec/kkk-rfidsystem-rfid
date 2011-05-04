@@ -11,7 +11,6 @@ public class RolesVo {
 	
 	public RolesVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public RolesVo(Long id, Long roleId, String roleName, String roleNote,
 			Integer isEnable) {
