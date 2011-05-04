@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rfid.common.db.GenericDao;
 import com.rfid.device.po.Device;
+import com.rfid.device.po.DeviceStatus;
 import com.rfid.user.po.UserDetail;
 
 public interface DeviceDao extends GenericDao<Device,Long>{
@@ -29,5 +30,4 @@ public interface DeviceDao extends GenericDao<Device,Long>{
 	public void attachDirty(Device instance);
 
 	public void attachClean(Device instance);
-
 }

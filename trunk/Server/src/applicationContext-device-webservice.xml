@@ -6,10 +6,10 @@
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
 	default-autowire="byName">
 
-	<bean id="userWebService" class="com.rfid.user.server.impl.UserServerImpl" />
-	<!-- Junit测试时需要注释下面代码
+	<bean id="deviceWebService" class="com.rfid.device.server.impl.UserServerImpl" />
+	<!-- Junit测试时需要注释下面代码 -->
 	<bean name="userService" parent="baseService">
 		<property name="serviceBean" ref="userWebService" />
 		<property name="serviceClass" value="com.rfid.user.server.UserServer" />
-	</bean> -->
+	</bean>
 </beans>

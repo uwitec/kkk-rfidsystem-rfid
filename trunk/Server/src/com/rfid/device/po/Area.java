@@ -13,7 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+
+import com.rfid.device.vo.AreaVo;
 
 /**
  * Area entity. @author MyEclipse Persistence Tools
@@ -71,7 +74,7 @@ public class Area implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "readerId", unique = true, nullable = false)
+	@JoinColumn(name = "readerId",referencedColumnName="readerid", unique = true, nullable = false)
 	public Reader getReader() {
 		return this.reader;
 	}
@@ -123,6 +126,22 @@ public class Area implements java.io.Serializable {
 
 	public void setDeviceStatuses(Set<DeviceStatus> deviceStatuses) {
 		this.deviceStatuses = deviceStatuses;
+	}
+
+	@Transient
+	public AreaVo toAreaVo() {
+		AreaVo vo = new AreaVo();
+		if(this.getAreaAddress()!=null)
+			vo.setAreaAddress(this.getAreaAddress());
+		if(this.getAreaId()!=null)
+			vo.setAreaId(this.getAreaId());
+		if(this.getId()!=null)
+			vo.setId(this.getId());
+		if(this.getReader()!=null)
+			vo.setReader(this.getReader().toReaderVo());
+		if(this.getScription()!=null)
+			vo.setScription(this.getScription());
+		return vo;
 	}
 
 }

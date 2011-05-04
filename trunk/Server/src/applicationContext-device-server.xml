@@ -9,4 +9,9 @@
 	<bean id="statusServer" class="com.rfid.device.server.impl.StatusServerImpl" />
 	
 	<bean id="deviceServer" class="com.rfid.device.server.impl.DeviceServerImpl" />
+	
+	<bean id="readerServer" class="com.rfid.device.server.impl.ReaderServerImpl" />
+	
+	<bean id="areaServer" class="com.rfid.device.server.impl.AreaServerImpl" />
+	
 </beans>

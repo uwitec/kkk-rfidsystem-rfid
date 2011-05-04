@@ -1,0 +1,1 @@
+from Area  where reader.readerid = 6102011050404212363

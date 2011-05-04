@@ -7,11 +7,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.rfid.device.vo.ReaderVo;
 
 /**
  * Reader entity. @author MyEclipse Persistence Tools
@@ -85,4 +89,16 @@ public class Reader implements java.io.Serializable {
 		this.areas = areas;
 	}
 
+	
+	@Transient
+	public ReaderVo toReaderVo(){
+		ReaderVo vo = new ReaderVo();
+		if(this.getId()!=null)
+			vo.setId(this.getId());
+		if(this.getReaderid()!=null)
+			vo.setReaderid(this.getReaderid());
+		if(this.getReaderIp()!=null)
+			vo.setReaderIp(this.getReaderIp());
+		return vo;
+	}
 }

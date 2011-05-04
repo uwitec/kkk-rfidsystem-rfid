@@ -16,15 +16,4 @@
 	</bean>
 	<bean id="addressingHandler" class="org.codehaus.xfire.addressing.AddressingInHandler" />
 
-	<!-- db resource sessionFactory -->
-	<import resource="applicationContext-dao.xml" />
-
-
-	<!-- db user.dao -->
-	<import resource="applicationContext-user-dao.xml" />
-	<!-- db device.dao -->
-	<import resource="applicationContext-device-dao.xml" />
-
-	<!-- server user -->
-	<import resource="applicationContext-user-server.xml" />
 </beans>

@@ -19,6 +19,12 @@ public class PoTools {
 		String randomStr = Double.toString(random);
 		String randomNum = randomStr.substring(0, 2);
 		String id = typeNo + dateStr + randomNum;
-		return Long.parseLong(id);
+		Long l;
+		try{
+			l = Long.parseLong(id);
+		}catch(Exception e){
+			l = getPoId(type);
+		}
+		return l;
 	}
 }

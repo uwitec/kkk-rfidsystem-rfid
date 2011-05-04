@@ -7,9 +7,11 @@ import com.rfid.device.dao.DeviceDao;
 import com.rfid.device.dao.DeviceDetailDao;
 import com.rfid.device.po.Device;
 import com.rfid.device.po.DeviceDetail;
+import com.rfid.device.po.DeviceStatus;
 import com.rfid.device.server.DeviceServer;
 import com.rfid.device.vo.DeviceDetailVo;
 import com.rfid.device.vo.DeviceVo;
+import com.rfid.device.vo.VoToPoTools;
 
 public class DeviceServerImpl implements DeviceServer {
 
@@ -74,7 +76,27 @@ public class DeviceServerImpl implements DeviceServer {
 
 	public boolean updateDevice(DeviceVo vo) {
 		// TODO Auto-generated method stub
+		Device d = VoToPoTools.toDevice(vo);
+		deviceDao.update(d);
 		return false;
 	}
+
+	public boolean updateDeviceDetail(DeviceDetailVo vo) {
+		// 只更改信息，不更改状态。
+		DeviceDetail dd = VoToPoTools.toDeviceDetail(vo);
+		deviceDetailDao.update(dd);
+		return false;
+	}
+
+	public void modifyDeviceState(Long deviceId, Long stateId) {
+		// TODO Auto-generated method stub
+		List deviceList = deviceDao.findByDeviceId(deviceId);
+		if(deviceList==null || deviceList.size()<=0)
+			return;
+		Device d = (Device)deviceList.get(0);
+//		DeviceStatus ds = d.getDeviceStatuses();
+	}
+	
+	
 
 }

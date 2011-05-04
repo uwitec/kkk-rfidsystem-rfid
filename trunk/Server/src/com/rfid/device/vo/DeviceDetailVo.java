@@ -17,7 +17,6 @@ public class DeviceDetailVo {
 	private Long deviceNum;
 	public DeviceDetailVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public DeviceDetailVo(Long id, DeviceVo deviceVo, String deviceName,
 			Double price, String manufactory, Date purchaseDate, String buyer,

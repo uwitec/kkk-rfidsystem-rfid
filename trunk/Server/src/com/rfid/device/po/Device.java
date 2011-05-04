@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -115,8 +117,8 @@ public class Device implements java.io.Serializable {
 		this.deviceDetails = deviceDetails;
 	}
 
+	@Transient 
 	public DeviceVo toDeviceVo() {
-		// TODO Auto-generated method stub
 		DeviceVo vo = new DeviceVo();
 		if(this.getDeviceId()!=null)
 			vo.setDeviceId(this.getDeviceId());

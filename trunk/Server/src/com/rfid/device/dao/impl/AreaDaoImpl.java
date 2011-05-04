@@ -193,4 +193,19 @@ public class AreaDaoImpl  extends HibernateGenericDao<Area, Long>
 	public static AreaDao getFromApplicationContext(ApplicationContext ctx) {
 		return (AreaDao) ctx.getBean("AreaDAO");
 	}
+
+	public boolean hasAreaByReaderId(Long readerid) {
+		log.debug("finding all Area instances");
+		try {
+			String queryString = "from Area where reader.readerid = ?";
+			List list = getHibernateTemplate().find(queryString, readerid);
+			if(list==null || list.size()<=0)
+				return false;
+			else
+				return true;
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
+	}
 }

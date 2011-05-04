@@ -51,4 +51,21 @@ public interface DeviceServer {
 	 * @return
 	 */
 	boolean updateDevice(DeviceVo vo);
+	
+	/**
+	 * 更新设备详细
+	 * @param vo 需要跟新的设备的查找信息
+	 * 根据此输入的对象，查找需要更新的设备
+	 * @return
+	 */
+	boolean updateDeviceDetail(DeviceDetailVo vo);
+
+	
+	/**
+	 * 更改设备状态
+	 * @param deviceId 设备编号
+	 * @param stateId 状态编号
+	 */
+	void modifyDeviceState(Long deviceId,Long stateId);
+
 }

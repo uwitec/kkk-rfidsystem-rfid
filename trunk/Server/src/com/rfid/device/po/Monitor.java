@@ -1,17 +1,26 @@
 package com.rfid.device.po;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+
+import com.rfid.device.vo.AreaVo;
+import com.rfid.device.vo.MonitorVo;
 
 /**
  * Monitor entity. @author MyEclipse Persistence Tools
@@ -98,4 +107,31 @@ public class Monitor implements java.io.Serializable {
 		this.areaMonitors = areaMonitors;
 	}
 
+	@Transient
+	public MonitorVo toMonitorVo(){
+		MonitorVo vo = new MonitorVo();
+		if(this.getId()!=null)
+			vo.setId(this.getId());
+		if(this.getMonitorId()!=null)
+			vo.setMonitorId(this.getMonitorId());
+		if(this.getMonitorIp()!=null)
+			vo.setMonitorIp(this.getMonitorIp());
+		if(this.getMonitorPort()!=null)
+			vo.setMonitorPort(this.getMonitorPort());
+		if(this.getAreaMonitors()!=null && this.getAreaMonitors().size()>0)
+		{
+			List<AreaVo> list = new ArrayList<AreaVo>();
+			Iterator it = this.getAreaMonitors().iterator();
+			while(it.hasNext())
+			{
+				AreaMonitor am = (AreaMonitor)it.next();
+				Area a = am.getArea();
+				AreaVo av = a.toAreaVo();
+				list.add(av);
+			}
+			vo.setAreas(list);
+		}
+		return vo;
+		
+	}
 }
