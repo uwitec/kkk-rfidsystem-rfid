@@ -1,8 +1,11 @@
 package com.rfid.device.server.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rfid.common.constants.PoTools;
+import com.rfid.common.constants.EnumConstant.PoType;
 import com.rfid.device.dao.DeviceDao;
 import com.rfid.device.dao.DeviceDetailDao;
 import com.rfid.device.po.Device;
@@ -34,9 +37,48 @@ public class DeviceServerImpl implements DeviceServer {
 		this.deviceDao = deviceDao;
 	}
 
-	public boolean addDevice(DeviceVo vo) {
-		// TODO Auto-generated method stub
-		return false;
+	public Long addDevice(DeviceVo vo) throws Exception {
+		Device d = new Device();
+		if(vo==null)
+			throw new Exception("输入对象为空");
+
+		d = VoToPoTools.toDevice(vo);
+		if(this.hasDeviceByDeviceId(d.getDeviceId()))
+			throw new Exception("已存在该设备");
+		else{
+			d.setDeviceId(PoTools.getPoId(PoType.DeviceType));
+			deviceDao.save(d);
+			return d.getDeviceId();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private boolean hasDeviceByDeviceId(Long deviceId){
+		List dList = deviceDao.findByDeviceId(deviceId);
+		if(dList!=null && dList.size()>0)
+			return true;
+		else
+			return false;
+	}
+	
+	public Long addDeviceDetail(DeviceDetailVo vo) throws Exception {
+		
+		if(vo==null)
+			throw new Exception("输入对象为空");
+		
+		DeviceDetail dd = new DeviceDetail();
+		dd = VoToPoTools.toDeviceDetail(vo);
+		Long deviceId = null;
+		if(!this.hasDeviceByDeviceId(vo.getDeviceVo().getDeviceId()))
+		{
+			deviceId = this.addDevice(vo.getDeviceVo());
+			if(deviceId == null || deviceId ==0)
+				throw new Exception("设备插入失败");
+		}
+		List dList = deviceDao.findByDeviceId(deviceId);
+		dd.setDevice((Device)dList.get(0));
+		deviceDetailDao.save(dd);
+		return deviceId;
 	}
 
 	public boolean deleteDevice(DeviceVo vo) {
@@ -88,15 +130,21 @@ public class DeviceServerImpl implements DeviceServer {
 		return false;
 	}
 
-	public void modifyDeviceState(Long deviceId, Long stateId) {
+	
+
+	public boolean deleteDevice(DeviceDetailVo vo) {
 		// TODO Auto-generated method stub
-		List deviceList = deviceDao.findByDeviceId(deviceId);
-		if(deviceList==null || deviceList.size()<=0)
-			return;
-		Device d = (Device)deviceList.get(0);
-//		DeviceStatus ds = d.getDeviceStatuses();
+		return false;
 	}
-	
-	
+
+	public List<DeviceDetailVo> getAllDeviceDetail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public DeviceDetailVo getDeviceDetailByDeviceId(Long deviceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -1,5 +1,6 @@
 package com.rfid.server.device;
 
+import java.util.Date;
 import java.util.List;
 
 import com.rfid.device.dao.DeviceDao;
@@ -32,5 +33,25 @@ public class DeviceServerTest extends MyLazyTestCase {
 		DeviceDetailVo vo = server.getDeviceDetailByDeviceName("电脑服务器");
 		System.out.print(vo.getManufactory());
 		assertNotNull(vo);
+	}
+	
+	public void testAddDevice() throws Exception{
+		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+		DeviceVo vo = new DeviceVo();
+		vo.setMonitorEnable(0);
+		vo.setDeviceId(Long.parseLong("2002011050505022072"));
+		assertNotNull(server.addDevice(vo));
+	}
+	
+	public void testAddDeviceDetail() throws Exception{
+		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+		DeviceDetailVo vo = new DeviceDetailVo();
+		vo.setBuyer("李老师");
+		vo.setDeviceName("分频器");
+		vo.setDeviceNum(null);
+		vo.setManufactory("长沙制造厂");
+		vo.setPrice(70000.0);
+		vo.setPurchaseDate(new Date());
+		assertNotNull(server.addDeviceDetail(vo));
 	}
 }

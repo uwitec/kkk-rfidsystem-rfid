@@ -1,1 +1,1 @@
-from Area  where reader.readerid = 6102011050404212363
+from DeviceStatus where isEnable=1 and device.deviceId=0

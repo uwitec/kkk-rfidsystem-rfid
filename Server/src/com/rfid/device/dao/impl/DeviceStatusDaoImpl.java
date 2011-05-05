@@ -194,4 +194,15 @@ public class DeviceStatusDaoImpl extends HibernateGenericDao<DeviceStatus, Long>
 		
 		return null;
 	}
+
+	public List findLastByDeviceId(Long deviceId) {
+		log.debug("getting DeviceStatus instance with deviceId: " + deviceId);
+		try {
+			String queryString = "from DeviceStatus where isEnable = 1 and device.deviceId = ?";
+			return getHibernateTemplate().find(queryString,deviceId);
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
+	}
 }

@@ -31,4 +31,11 @@ public interface DeviceStatusDao extends GenericDao<DeviceStatus,Long>{
 	public void attachClean(DeviceStatus instance);
 
 	public DeviceStatus findLastStatus(Long deviceId);
+
+	/**
+	 * 通过设备Id查找最新的状态记录
+	 * @param deviceId 设备编号
+	 * @return
+	 */
+	public List findLastByDeviceId(Long deviceId);
 }

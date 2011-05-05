@@ -14,4 +14,7 @@
 	
 	<bean id="areaServer" class="com.rfid.device.server.impl.AreaServerImpl" />
 	
+	<bean id="deviceManagerServer" class="com.rfid.device.server.impl.DeviceManagerServerImpl" />
+	
+	
 </beans>

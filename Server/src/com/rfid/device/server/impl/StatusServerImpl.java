@@ -38,7 +38,6 @@ public class StatusServerImpl implements StatusServer{
 
 	@SuppressWarnings("unchecked")
 	public List<StatusVo> getAllStatus() {
-		// TODO Auto-generated method stub
 		List list = statusDao.findAll();
 		if(list==null || list.size()==0)
 			return null;
