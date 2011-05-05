@@ -17,8 +17,8 @@ public class StatusServerTest extends TestCase{
 	public void testAddStatus(){
 		StatusServer server = (StatusServer)SpringBeanUtils.getBean("statusServer");
 		StatusVo vo = new StatusVo();
-		vo.setLevel(6);
-		vo.setScription("已借出");
+		vo.setLevel(0);
+		vo.setScription("未检测");
 		server.addStatus(vo);
 	}
 	

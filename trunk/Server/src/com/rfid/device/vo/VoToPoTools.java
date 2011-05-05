@@ -1,5 +1,9 @@
 package com.rfid.device.vo;
 
+import java.sql.Timestamp;
+
+import com.rfid.common.constants.PoTools;
+import com.rfid.common.constants.EnumConstant.PoType;
 import com.rfid.device.po.Area;
 import com.rfid.device.po.Device;
 import com.rfid.device.po.DeviceDetail;
@@ -33,19 +37,40 @@ public class VoToPoTools {
 			dd.setDeviceNum(vo.getDeviceNum());
 		if(vo.getDeviceVo()!=null)
 			dd.setDevice(VoToPoTools.toDevice(vo.getDeviceVo()));
+		else{
+			dd.setDevice(VoToPoTools.toDevice(new DeviceVo()));
+		}
 		if(vo.getId()!=null && vo.getId()!=0)
 			dd.setId(vo.getId());
-		return null;
+		if(vo.getManufactory()!=null)
+			dd.setManufactory(vo.getManufactory());
+		if(vo.getPrice()!=null)
+			dd.setPrice(vo.getPrice());
+		if(vo.getPurchaseDate()!=null)
+			dd.setPurchaseDate(new Timestamp(vo.getPurchaseDate().getTime()));
+		return dd;
 	}
 
 	public static Device toDevice(DeviceVo vo) {
 		Device d = new Device();
+		if(vo==null){
+			d.setMonitorEnable(1);
+			d.setDeviceId(PoTools.getPoId(PoType.DeviceType));
+			return d;
+		}
 		if(vo.getId()!=null && vo.getId()!=0)
 			d.setId(vo.getId());
-		if(vo.getMonitorEnable()!=null)
-			d.setMonitorEnable(vo.getMonitorEnable());
+		if(vo.getMonitorEnable()!=null){
+			if(vo.getMonitorEnable()==0)
+				d.setMonitorEnable(0);
+			else
+				d.setMonitorEnable(1);
+		}else
+			d.setMonitorEnable(1);
 		if(vo.getDeviceId()!=null && vo.getDeviceId()!=0)
 			d.setDeviceId(vo.getDeviceId());
+		else
+			d.setDeviceId(PoTools.getPoId(PoType.DeviceType));
 		return d;
 	}
 
