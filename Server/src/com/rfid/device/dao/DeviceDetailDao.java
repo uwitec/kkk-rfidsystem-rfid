@@ -36,4 +36,6 @@ public interface DeviceDetailDao extends GenericDao<DeviceDetail,Long>{
 
 	public void attachClean(DeviceDetail instance);
 
+	public DeviceDetail findByDeviceId(Long deviceId);
+
 }

@@ -8,8 +8,20 @@ import junit.framework.TestCase;
 
 public class DeviceManagerServerTest extends TestCase{
 
-	public void testAssignDeviceToArea(){
+	public void testAssignDeviceToArea() throws Exception{
 		DeviceManagerServer server = (DeviceManagerServer)SpringBeanUtils.getBean("deviceManagerServer");
-//		server.assignDeviceToArea(deviceId, areaId)
+		server.assignDeviceToArea(
+				Long.parseLong("2002011042403393164")
+			  , Long.parseLong("3002011050403205539"));
 	}
+	
+	public void testModifyDeviceState() throws Exception{
+		DeviceManagerServer server = (DeviceManagerServer)SpringBeanUtils.getBean("deviceManagerServer");
+		server.modifyDeviceState(
+				Long.parseLong("2002011050505111287")
+				, Long.parseLong("2102011042403303091"));
+//				Long.parseLong("2002011042403393164")
+//			  , Long.parseLong("3002011050403205539"));
+	}
+	
 }

@@ -213,4 +213,20 @@ public class DeviceDetailDaoImpl extends HibernateGenericDao<DeviceDetail, Long>
 			ApplicationContext ctx) {
 		return (DeviceDetailDao) ctx.getBean("DeviceDetailDAO");
 	}
+
+	public DeviceDetail findByDeviceId(Long deviceId) {
+		log.debug("finding DeviceDetail instance with property: "
+				+ "deviceId" + ", value: " + deviceId);
+		try {
+			String queryString = "from DeviceDetail as model where model."
+					+ "device.deviceId" + "= ?";
+			List list = getHibernateTemplate().find(queryString, deviceId);
+			if(list==null || list.size()<=0)
+				return null;
+			return (DeviceDetail)list.get(0);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 }

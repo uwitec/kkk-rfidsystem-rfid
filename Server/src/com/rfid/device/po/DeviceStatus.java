@@ -58,7 +58,7 @@ public class DeviceStatus implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "current_AreaId", nullable = false)
+	@JoinColumn(name = "current_AreaId",referencedColumnName="areaId", nullable = false)
 	public Area getArea() {
 		return this.area;
 	}

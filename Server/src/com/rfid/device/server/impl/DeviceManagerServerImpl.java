@@ -55,16 +55,34 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 
 	@SuppressWarnings("unchecked")
 	public void modifyDeviceState(Long deviceId, Long statusId) throws Exception {
-		List deviceList = deviceDao.findByDeviceId(deviceId);
-		if(deviceList==null || deviceList.size()<=0)
+		List dsList = deviceStatusDao.findLastByDeviceId(deviceId);
+		if(dsList==null || dsList.size()<=0)
+			throw new Exception("不存此记录，无法更新");
+		List dList = deviceDao.findByDeviceId(deviceId);
+		if(dList==null || dList.size()<=0)
 			throw new Exception("不存在该设备");
+		else{
+			Device d = (Device)dList.get(0);
+			if(d.getMonitorEnable()==0)
+				throw new Exception("该设备没有设置需要监控");
+		}
 		List sList = statusDao.findByStatusId(statusId);
 		if(sList==null || sList.size()<=0)
 			throw new Exception("不存在该状态字");
-		Device d = (Device)deviceList.get(0);
-		Status s = (Status)sList.get(0);
+		
+		Device device = (Device)dList.get(0);
+		Status status = (Status)sList.get(0);
+		DeviceStatus oldDs = (DeviceStatus)dsList.get(0);
+		oldDs.setIsEnable(0);
+		deviceStatusDao.update(oldDs);
 		DeviceStatus ds = new DeviceStatus();
-		//判断是否未检测状态
+		ds.setArea(oldDs.getArea());
+		ds.setDevice(device);
+		ds.setIsEnable(1);
+		ds.setMonitorTime(new Timestamp(new Date().getTime()));
+		ds.setStatus(status);
+		ds.setPreviousId(oldDs.getId());
+		deviceStatusDao.save(ds);
 	}
 
 	public void assignDeviceToArea(Long deviceId, Long areaId) throws Exception {
@@ -76,6 +94,11 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 		List dList = deviceDao.findByDeviceId(deviceId);
 		if(dList==null || dList.size()<=0)
 			throw new Exception("不存在该设备");
+		else{
+			Device d = (Device)dList.get(0);
+			if(d.getMonitorEnable()==0)
+				throw new Exception("该设备没有设置需要监控");
+		}
 		List aList = areaDao.findByAreaId(areaId);
 		if(aList==null || aList.size()<=0)
 			throw new Exception("不存在该区域");
@@ -101,28 +124,25 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 		List dsList = deviceStatusDao.findLastByDeviceId(deviceId);
 		if(dsList==null || dsList.size()<=0){
 			//不存在最新记录
-			ds.setArea(area);
-			ds.setDevice(device);
-			ds.setIsEnable(1);
-			ds.setMonitorTime(new Timestamp(new Date().getTime()));
 			ds.setPreviousId(Long.parseLong("0"));
-			ds.setStatus(status);
-			deviceStatusDao.save(ds);
 		}else{
-			//存在最新记录，需要覆盖
+			//存在最新记录,将原有的记录设置为不启用，插入新纪录
 			DeviceStatus oldDs = (DeviceStatus)dsList.get(0);
+			if(oldDs.getArea().equals(area))
+				return;
 			oldDs.setIsEnable(0);
-			Long oldDsId = oldDs.getId();
 			deviceStatusDao.update(oldDs);
-			ds.setArea(area);
-			ds.setDevice(device);
-			ds.setIsEnable(1);
-			ds.setMonitorTime(new Timestamp(new Date().getTime()));
-			ds.setPreviousId(oldDsId);
-			ds.setStatus(status);
-			deviceStatusDao.save(ds);
+			Long oldId = oldDs.getId();
+			ds.setPreviousId(oldId);
 		}
+		ds.setArea(area);
+		ds.setDevice(device);
+		ds.setIsEnable(1);
+		ds.setMonitorTime(new Timestamp(new Date().getTime()));
+		ds.setStatus(status);
+		deviceStatusDao.save(ds);
 	}
 
+	
 
 }

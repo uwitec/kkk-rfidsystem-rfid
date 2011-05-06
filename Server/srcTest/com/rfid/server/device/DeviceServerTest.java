@@ -3,14 +3,11 @@ package com.rfid.server.device;
 import java.util.Date;
 import java.util.List;
 
-import com.rfid.device.dao.DeviceDao;
 import com.rfid.device.server.DeviceServer;
 import com.rfid.device.vo.DeviceDetailVo;
 import com.rfid.device.vo.DeviceVo;
 import com.rfid.test.common.MyLazyTestCase;
 import com.rfid.test.common.SpringBeanUtils;
-
-import junit.framework.TestCase;
 
 public class DeviceServerTest extends MyLazyTestCase {
 	
@@ -21,11 +18,34 @@ public class DeviceServerTest extends MyLazyTestCase {
 		assertTrue(list.size()>0);
 	}
 	
+	public void testGetAllDeviceMonitor(){
+		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+		List list = server.getAllDeviceMonitor();
+		assertNotNull(list);
+		System.out.println(list.size());
+		assertTrue(list.size()>0);
+	}
+	
+	public void testGetAllDeviceDetail() throws Exception{
+		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+		List list = server.getAllDeviceDetailMonitor();
+		assertNotNull(list);
+		System.out.println(list.size());
+		assertTrue(list.size()>0);
+	}
+	
 	public void testGetDeviceByDeviceId(){
 		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
 		DeviceVo vo = server.getDeviceByDeviceId(Long.parseLong("2002011042403393164"));
 		System.out.print(vo.getId());
 		assertNotNull(vo);
+	}
+	
+	public void testGetDeviceDetailByDeviceId(){
+		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+		DeviceDetailVo vo = server.getDeviceDetailByDeviceId(Long.parseLong("2002011042403393163"));
+		assertNotNull(vo);
+		System.out.print(vo.getId());
 	}
 	
 	public void testGetDeviceDetailByDeviceName(){
