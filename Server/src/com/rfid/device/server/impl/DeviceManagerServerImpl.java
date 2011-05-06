@@ -7,12 +7,16 @@ import java.util.List;
 import com.rfid.device.dao.AreaDao;
 import com.rfid.device.dao.DeviceDao;
 import com.rfid.device.dao.DeviceStatusDao;
+import com.rfid.device.dao.DeviceUserDao;
 import com.rfid.device.dao.StatusDao;
 import com.rfid.device.po.Area;
 import com.rfid.device.po.Device;
 import com.rfid.device.po.DeviceStatus;
+import com.rfid.device.po.DeviceUser;
 import com.rfid.device.po.Status;
 import com.rfid.device.server.DeviceManagerServer;
+import com.rfid.user.dao.UsersDao;
+import com.rfid.user.po.Users;
 
 public class DeviceManagerServerImpl implements DeviceManagerServer {
 
@@ -20,7 +24,26 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 	private StatusDao statusDao;
 	private AreaDao areaDao;
 	private DeviceStatusDao deviceStatusDao;
+	private UsersDao usersDao;
+	private DeviceUserDao deviceUserDao;
 	
+	
+	public UsersDao getUsersDao() {
+		return usersDao;
+	}
+
+	public void setUsersDao(UsersDao usersDao) {
+		this.usersDao = usersDao;
+	}
+
+	public DeviceUserDao getDeviceUserDao() {
+		return deviceUserDao;
+	}
+
+	public void setDeviceUserDao(DeviceUserDao deviceUserDao) {
+		this.deviceUserDao = deviceUserDao;
+	}
+
 	public DeviceStatusDao getDeviceStatusDao() {
 		return deviceStatusDao;
 	}
@@ -141,6 +164,30 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 		ds.setMonitorTime(new Timestamp(new Date().getTime()));
 		ds.setStatus(status);
 		deviceStatusDao.save(ds);
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	public void assignDeviceToUser(Long deviceId, Long userId) throws Exception {
+		// TODO Auto-generated method stub
+		List dList = deviceDao.findByDeviceId(deviceId);
+		if(dList==null || dList.size()<=0)
+			throw new Exception("不存在该设备");
+		List uList  = usersDao.findByUserid(userId);
+		if(uList==null || uList.size()<=0)
+			throw new Exception("不存在该用户");
+		Device device = (Device)dList.get(0);
+		Users user = (Users)uList.get(0);
+		List duList = deviceUserDao.findByUserDevice(deviceId,userId);
+		if(duList != null && duList.size()>0 )
+			return;
+		else
+		{
+			DeviceUser du = new DeviceUser();
+			du.setDevice(device);
+			du.setUsers(user);
+			deviceUserDao.save(du);
+		}
 	}
 
 	

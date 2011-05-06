@@ -24,4 +24,10 @@ public class DeviceManagerServerTest extends TestCase{
 //			  , Long.parseLong("3002011050403205539"));
 	}
 	
+	public void testAssignDeviceToUser() throws Exception{
+		DeviceManagerServer server = (DeviceManagerServer)SpringBeanUtils.getBean("deviceManagerServer");
+		server.assignDeviceToUser(
+				Long.parseLong("2002011042403393164")
+				, Long.parseLong("1002011042402555728"));
+	}
 }

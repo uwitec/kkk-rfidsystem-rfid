@@ -50,7 +50,7 @@ public class DeviceUser implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "deviceId", nullable = false)
+	@JoinColumn(name = "deviceId",referencedColumnName="deviceId", nullable = false)
 	public Device getDevice() {
 		return this.device;
 	}
@@ -60,7 +60,7 @@ public class DeviceUser implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "userId",referencedColumnName="userid", nullable = false)
 	public Users getUsers() {
 		return this.users;
 	}
