@@ -1,5 +1,6 @@
 package com.rfid.device.server.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.rfid.common.constants.PoTools;
@@ -16,6 +17,7 @@ public class AreaServerImpl implements AreaServer {
 
 	AreaDao areaDao;
 	ReaderDao readerDao;
+	
 	
 	public ReaderDao getReaderDao() {
 		return readerDao;
@@ -39,12 +41,13 @@ public class AreaServerImpl implements AreaServer {
 		boolean is = areaDao.hasAreaByReaderId(vo.getReader().getReaderid());
 		if(is)
 			throw new Exception("该读写器已经配有区域");
+		
 		Area a = VoToPoTools.toArea(vo);
 		a.setAreaId(PoTools.getPoId(PoType.AreaType));
 		areaDao.save(a);
 	}
-
-	public void modifyAreaReader(Long areaId, Long readerId) throws Exception {
+	
+	public void assignAreaReader(Long areaId, Long readerId) throws Exception {
 		List rList = readerDao.findByReaderid(readerId);
 		if(rList==null || rList.size()<=0)
 			throw new Exception("不存在该读写器");
@@ -55,7 +58,17 @@ public class AreaServerImpl implements AreaServer {
 		Reader r = (Reader)rList.get(0);
 		a.setReader(r);
 		areaDao.update(a);
-		
 	}
 
+	public List<AreaVo> findAllArea() {
+		List<Area> list = areaDao.findAll();
+		if(list==null || list.size()<=0)
+			return null;
+		List<AreaVo> voList = new ArrayList<AreaVo>();
+		for(Area a : list){
+			AreaVo vo = a.toAreaVo();
+			voList.add(vo);
+		}
+		return voList;
+	}
 }

@@ -40,7 +40,7 @@ public interface UserServer {
 	 * @throws Exception 
 	 */
 	public boolean regUsers(UsersVo userVo) throws Exception;
-	public boolean regUsers(UserDetailVo userDetailVo) throws Exception;
+	public boolean regUsersDetail(UserDetailVo userDetailVo) throws Exception;
 	
 	/**
 	 * 判断是否存在此用户名

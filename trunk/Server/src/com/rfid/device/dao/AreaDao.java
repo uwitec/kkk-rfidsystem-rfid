@@ -32,6 +32,8 @@ public interface AreaDao extends GenericDao<Area,Long>{
 
 	public void attachClean(Area instance);
 
+	public boolean hasAreaByAreaId(Long areaId);
+	
 	/**
 	 * 查询该读写器是否已经分配在某区域内
 	 * @param readerid

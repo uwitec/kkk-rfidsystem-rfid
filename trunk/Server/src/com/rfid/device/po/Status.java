@@ -21,7 +21,9 @@ import com.rfid.device.vo.StatusVo;
  * Status entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "status", schema = "dbo", catalog = "rfiddb", uniqueConstraints = @UniqueConstraint(columnNames = "statusId"))
+@Table(name = "status", schema = "dbo", catalog = "rfiddb",uniqueConstraints = {
+		@UniqueConstraint(columnNames = "statusId"),
+		@UniqueConstraint(columnNames = "level") })
 public class Status implements java.io.Serializable {
 
 	// Fields
@@ -83,7 +85,7 @@ public class Status implements java.io.Serializable {
 		this.scription = scription;
 	}
 
-	@Column(name = "level", nullable = false)
+	@Column(name = "level", unique = true, nullable = false)
 	public Integer getLevel() {
 		return this.level;
 	}

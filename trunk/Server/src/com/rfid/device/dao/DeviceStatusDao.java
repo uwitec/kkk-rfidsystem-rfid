@@ -38,4 +38,6 @@ public interface DeviceStatusDao extends GenericDao<DeviceStatus,Long>{
 	 * @return
 	 */
 	public List findLastByDeviceId(Long deviceId);
+
+	public List findLastByAreaId(Long areaId);
 }

@@ -3,6 +3,7 @@ package com.rfid.device.dao;
 import java.util.List;
 
 import com.rfid.common.db.GenericDao;
+import com.rfid.device.po.Area;
 import com.rfid.device.po.AreaMonitor;
 import com.rfid.user.po.UserDetail;
 
@@ -25,5 +26,7 @@ public interface AreaMonitorDao extends GenericDao<AreaMonitor,Long>{
 	public void attachDirty(AreaMonitor instance);
 
 	public void attachClean(AreaMonitor instance);
+
+	public List<Area> findAreaListByMonitorId(Long monitorId);
 
 }

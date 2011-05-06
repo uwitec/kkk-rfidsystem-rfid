@@ -1,7 +1,6 @@
 package com.rfid.server.device;
 
 import com.rfid.device.server.DeviceManagerServer;
-import com.rfid.device.server.DeviceServer;
 import com.rfid.test.common.SpringBeanUtils;
 
 import junit.framework.TestCase;
@@ -12,7 +11,7 @@ public class DeviceManagerServerTest extends TestCase{
 		DeviceManagerServer server = (DeviceManagerServer)SpringBeanUtils.getBean("deviceManagerServer");
 		server.assignDeviceToArea(
 				Long.parseLong("2002011042403393164")
-			  , Long.parseLong("3002011050403205539"));
+			  , Long.parseLong("3002011050402592162"));
 	}
 	
 	public void testModifyDeviceState() throws Exception{

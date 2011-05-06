@@ -172,7 +172,7 @@ public class UserServerImpl implements UserServer {
 			return userDetail.toUserDetailVo();
 		}
 	}
-	public boolean regUsers(UserDetailVo userDetailVo) throws Exception {
+	public boolean regUsersDetail(UserDetailVo userDetailVo) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
 	}

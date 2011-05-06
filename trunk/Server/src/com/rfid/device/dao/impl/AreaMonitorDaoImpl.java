@@ -173,4 +173,19 @@ public class AreaMonitorDaoImpl extends HibernateGenericDao< AreaMonitor, Long>
 			ApplicationContext ctx) {
 		return (AreaMonitorDao) ctx.getBean("AreaMonitorDAO");
 	}
+
+	public List<Area> findAreaListByMonitorId(Long monitorId) {
+		log.debug("finding Area instance with property: " + monitorId
+				+ ", value: " + monitorId);
+		try {
+			String queryString 
+				= "select a from AreaMonitor as am,Area as a " +
+						" where am.area.areaId = a.areaId and " +
+						" am.monitor.monitorId = ?";
+			return getHibernateTemplate().find(queryString, monitorId);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 }

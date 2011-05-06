@@ -16,5 +16,6 @@
 	
 	<bean id="deviceManagerServer" class="com.rfid.device.server.impl.DeviceManagerServerImpl" />
 	
+	<bean id="monitorServer" class="com.rfid.device.server.impl.MonitorServerImpl" />
 	
 </beans>

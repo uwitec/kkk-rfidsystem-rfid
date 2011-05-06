@@ -8,6 +8,7 @@ public interface EnumConstant {
 	int STATUS_POTYPE_NO = 210;
 	int AREA_POTYPE_NO = 300;
 	int READER_POTYPE_NO = 610;
+	int MONITOR_POTYPE_NO = 600;
 	
 	public enum PoType{
 		UserType{
@@ -34,6 +35,11 @@ public interface EnumConstant {
 			@Override
 			public String getInfo() {
 				return String.valueOf(AREA_POTYPE_NO);
+			}
+		}, MonitorType{
+			@Override
+			public String getInfo() {
+				return String.valueOf(MONITOR_POTYPE_NO);
 			}
 		};
 		abstract String getInfo();

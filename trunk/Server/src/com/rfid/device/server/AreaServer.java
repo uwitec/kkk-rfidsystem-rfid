@@ -1,5 +1,7 @@
 package com.rfid.device.server;
 
+import java.util.List;
+
 import com.rfid.device.vo.AreaVo;
 
 public interface AreaServer {
@@ -18,5 +20,12 @@ public interface AreaServer {
 	 * @param readerId 读写器编号
 	 * @throws Exception 错误信息
 	 */
-	void modifyAreaReader(Long areaId,Long readerId) throws Exception;
+	void assignAreaReader(Long areaId,Long readerId) throws Exception;
+
+
+	/**
+	 * 获取所有区域
+	 * @return
+	 */
+	List<AreaVo> findAllArea();
 }
