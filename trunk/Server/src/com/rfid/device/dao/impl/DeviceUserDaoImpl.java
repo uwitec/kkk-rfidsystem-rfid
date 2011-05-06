@@ -172,4 +172,21 @@ public class DeviceUserDaoImpl extends HibernateGenericDao<DeviceUser, Long>
 	public static DeviceUserDao getFromApplicationContext(ApplicationContext ctx) {
 		return (DeviceUserDao) ctx.getBean("DeviceUserDAO");
 	}
+
+	public List findByUserDevice(Long deviceId, Long userId) {
+		log.debug("finding DeviceUser instance with property1: " + "deviceId:"
+				+ ", value: " + deviceId
+				+ " and property2:" + "userId"
+				+ ", value: " + userId);
+		try {
+			String queryString = "from DeviceUser as model where "
+					+ " model.device.deviceId " + "= ? "
+					+ " and "
+					+ " model.users.userid " + "= ? ";
+			return getHibernateTemplate().find(queryString, deviceId , userId);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 }

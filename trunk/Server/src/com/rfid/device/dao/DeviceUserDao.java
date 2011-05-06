@@ -26,4 +26,6 @@ public interface DeviceUserDao extends GenericDao<DeviceUser,Long> {
 
 	public void attachClean(DeviceUser instance);
 
+	public List findByUserDevice(Long deviceId, Long userId);
+
 }
