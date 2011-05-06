@@ -20,10 +20,21 @@ public interface DeviceServer {
 	 */
 	List<DeviceVo> getAllDevice();
 	/**
+	 * 获取所有的开启监控设备信息
+	 * @return
+	 */
+	List<DeviceVo> getAllDeviceMonitor();
+	/**
 	 * 获取所有的设备及详细信息
 	 * @return
 	 */
 	List<DeviceDetailVo> getAllDeviceDetail();
+	/**
+	 * 获取所有的开启监控设备信息及详细信息
+	 * @return
+	 * @throws Exception 
+	 */
+	List<DeviceDetailVo> getAllDeviceDetailMonitor() throws Exception;
 	/**
 	 * 精确查找，通过设备编号查找设备
 	 * @param deviceId 设备编号
@@ -72,14 +83,16 @@ public interface DeviceServer {
 	 * @param vo 需要跟新的设备的查找信息
 	 * 根据此输入的对象，查找需要更新的设备
 	 * @return
+	 * @throws Exception 
 	 */
-	boolean updateDevice(DeviceVo vo);
+	boolean updateDevice(DeviceVo vo) throws Exception;
 	/**
 	 * 更新设备详细
 	 * @param vo 需要跟新的设备的查找信息
 	 * 根据此输入的对象，查找需要更新的设备
 	 * @return
+	 * @throws Exception 
 	 */
-	boolean updateDeviceDetail(DeviceDetailVo vo);
+	boolean updateDeviceDetail(DeviceDetailVo vo) throws Exception;
 	
 }

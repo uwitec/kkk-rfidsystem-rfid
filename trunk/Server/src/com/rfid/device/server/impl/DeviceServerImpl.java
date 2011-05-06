@@ -1,6 +1,5 @@
 package com.rfid.device.server.impl;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import com.rfid.device.dao.DeviceDao;
 import com.rfid.device.dao.DeviceDetailDao;
 import com.rfid.device.po.Device;
 import com.rfid.device.po.DeviceDetail;
-import com.rfid.device.po.DeviceStatus;
 import com.rfid.device.server.DeviceServer;
 import com.rfid.device.vo.DeviceDetailVo;
 import com.rfid.device.vo.DeviceVo;
@@ -37,6 +35,7 @@ public class DeviceServerImpl implements DeviceServer {
 		this.deviceDao = deviceDao;
 	}
 
+	//增加操作
 	public Long addDevice(DeviceVo vo) throws Exception {
 		Device d = new Device();
 		if(vo==null)
@@ -61,8 +60,8 @@ public class DeviceServerImpl implements DeviceServer {
 			return false;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Long addDeviceDetail(DeviceDetailVo vo) throws Exception {
-		
 		if(vo==null)
 			throw new Exception("输入对象为空");
 		
@@ -81,11 +80,7 @@ public class DeviceServerImpl implements DeviceServer {
 		return deviceId;
 	}
 
-	public boolean deleteDevice(DeviceVo vo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	//查询方法
 	@SuppressWarnings("unchecked")
 	public List<DeviceVo> getAllDevice() {
 		List<Device> list = deviceDao.findAll();
@@ -97,6 +92,58 @@ public class DeviceServerImpl implements DeviceServer {
 		return listVo;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<DeviceDetailVo> getAllDeviceDetail() {
+		List<DeviceDetail> list = deviceDetailDao.findAll();
+		if(list==null || list.size()==0)
+			return null;
+		List<DeviceDetailVo> listVo = new ArrayList<DeviceDetailVo>();
+		for(DeviceDetail dd : list){
+			Device d = dd.getDevice();
+			DeviceVo dVo = d.toDeviceVo();
+			DeviceDetailVo ddVo = dd.toDeviceDetailVo();
+			ddVo.setDeviceVo(dVo);
+			listVo.add(ddVo);
+		}
+		return listVo;
+	}
+
+	public List<DeviceVo> getAllDeviceMonitor() {
+		List<Device> list = deviceDao.findByMonitorEnable(1);
+		if(list==null || list.size()==0)
+			return null;
+		List<DeviceVo> listVo = new ArrayList<DeviceVo>();
+		for(Device d : list)
+			listVo.add(d.toDeviceVo());
+		return listVo;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<DeviceDetailVo> getAllDeviceDetailMonitor() throws Exception {
+		List<DeviceDetail> list = deviceDetailDao.findAll();
+		if(list==null || list.size()==0)
+			return null;
+		List<DeviceDetailVo> listVo = new ArrayList<DeviceDetailVo>();
+		for(DeviceDetail dd : list){
+			Device d = dd.getDevice();
+			if(d==null)
+				throw new Exception("数据出错");
+			if(d.getMonitorEnable()==1){
+				DeviceVo dVo = d.toDeviceVo();
+				DeviceDetailVo ddVo = dd.toDeviceDetailVo();
+				ddVo.setDeviceVo(dVo);
+				listVo.add(ddVo);
+			}
+		}
+		return listVo;
+	}
+	
+	public DeviceDetailVo getDeviceDetailByDeviceId(Long deviceId) {
+		DeviceDetail dd = deviceDetailDao.findByDeviceId(deviceId);
+		if(dd==null)
+			return null;
+		return dd.toDeviceDetailVo();
+	}
 	
 	@SuppressWarnings("unchecked")
 	public DeviceVo getDeviceByDeviceId(Long deviceId) {
@@ -106,7 +153,7 @@ public class DeviceServerImpl implements DeviceServer {
 		Device d = (Device)list.get(0);
 		return d.toDeviceVo();
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public DeviceDetailVo getDeviceDetailByDeviceName(String deviceName) {
 		List list = deviceDetailDao.findByDeviceName(deviceName);
@@ -116,18 +163,28 @@ public class DeviceServerImpl implements DeviceServer {
 		return dd.toDeviceDetailVo();
 	}
 
-	public boolean updateDevice(DeviceVo vo) {
-		// TODO Auto-generated method stub
-		Device d = VoToPoTools.toDevice(vo);
-		deviceDao.update(d);
-		return false;
+	//更新操作
+	public boolean updateDevice(DeviceVo vo) throws Exception {
+		try{
+			Device d = VoToPoTools.toDevice(vo);
+			deviceDao.update(d);
+			return true;
+		}catch(Exception ex)
+		{	
+			throw ex;
+		}
 	}
 
-	public boolean updateDeviceDetail(DeviceDetailVo vo) {
+	public boolean updateDeviceDetail(DeviceDetailVo vo) throws Exception {
 		// 只更改信息，不更改状态。
-		DeviceDetail dd = VoToPoTools.toDeviceDetail(vo);
-		deviceDetailDao.update(dd);
-		return false;
+		try{
+			DeviceDetail dd = VoToPoTools.toDeviceDetail(vo);
+			deviceDetailDao.update(dd);
+			return true;
+		}catch(Exception ex)
+		{	
+			throw ex;
+		}
 	}
 
 	
@@ -137,14 +194,13 @@ public class DeviceServerImpl implements DeviceServer {
 		return false;
 	}
 
-	public List<DeviceDetailVo> getAllDeviceDetail() {
+	public boolean deleteDevice(DeviceVo vo) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
-	public DeviceDetailVo getDeviceDetailByDeviceId(Long deviceId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
+	
 
 }
