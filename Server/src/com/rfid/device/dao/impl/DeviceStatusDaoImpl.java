@@ -205,4 +205,15 @@ public class DeviceStatusDaoImpl extends HibernateGenericDao<DeviceStatus, Long>
 			throw re;
 		}
 	}
+
+	public List findLastByAreaId(Long areaId) {
+		log.debug("getting DeviceStatus instance with areaId: " + areaId);
+		try {
+			String queryString = "from DeviceStatus where isEnable = 1 and area.areaId = ?";
+			return getHibernateTemplate().find(queryString,areaId);
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
+	}
 }

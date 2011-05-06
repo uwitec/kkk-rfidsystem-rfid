@@ -208,4 +208,11 @@ public class AreaDaoImpl  extends HibernateGenericDao<Area, Long>
 			throw re;
 		}
 	}
+
+	public boolean hasAreaByAreaId(Long areaId) {
+		List aList = this.findByAreaId(areaId);
+		if(aList==null || aList.size()<=0)
+			return false;
+		return true;
+	}
 }

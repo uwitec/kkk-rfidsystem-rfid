@@ -23,9 +23,9 @@ public class AreaServerTest extends TestCase{
 		server.addArea(vo);
 	}
 	
-	public void testModifyAreaReader() throws Exception{
+	public void testAssignAreaReader() throws Exception{
 		AreaServer server = (AreaServer)SpringBeanUtils.getBean("areaServer");
-		server.modifyAreaReader(Long.parseLong("3002011050402592162")
+		server.assignAreaReader(Long.parseLong("3002011050402592162")
 				, Long.parseLong("6102011050404212363"));
 	}
 }

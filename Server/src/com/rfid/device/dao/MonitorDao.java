@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.rfid.common.db.GenericDao;
 import com.rfid.device.po.Monitor;
-import com.rfid.user.po.UserDetail;
 
 public interface MonitorDao extends GenericDao<Monitor,Long>{
 

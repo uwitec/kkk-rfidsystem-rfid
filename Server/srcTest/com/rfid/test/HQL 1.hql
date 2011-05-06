@@ -1,1 +1,1 @@
-from DeviceStatus where isEnable=1 and device.deviceId=0
+from AreaMonitor where monitor.monitorId=6002011050602382357

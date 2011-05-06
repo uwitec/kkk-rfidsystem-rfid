@@ -1,12 +1,15 @@
 package com.rfid.device.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.rfid.common.constants.PoTools;
 import com.rfid.common.constants.EnumConstant.PoType;
 import com.rfid.device.po.Area;
+import com.rfid.device.po.AreaMonitor;
 import com.rfid.device.po.Device;
 import com.rfid.device.po.DeviceDetail;
+import com.rfid.device.po.Monitor;
 import com.rfid.device.po.Reader;
 import com.rfid.device.po.Status;
 
@@ -98,5 +101,21 @@ public class VoToPoTools {
 		if(vo.getScription()!=null)
 			a.setScription(vo.getScription());
 		return a;
+	}
+
+	public static Monitor toMonitor(MonitorVo vo) {
+		// TODO Auto-generated method stub
+		Monitor m = new Monitor();
+		if(vo.getId()!=null && vo.getId()>0)
+			m.setId(vo.getId());
+		if(vo.getMonitorId()!=null && vo.getMonitorId()>0)
+			m.setMonitorId(vo.getMonitorId());
+		else
+			m.setMonitorId(PoTools.getPoId(PoType.MonitorType));
+		if(vo.getMonitorIp()!=null)
+			m.setMonitorIp(vo.getMonitorIp());
+		if(vo.getMonitorPort()!=null)
+			m.setMonitorPort(vo.getMonitorPort());
+		return m;
 	}
 }

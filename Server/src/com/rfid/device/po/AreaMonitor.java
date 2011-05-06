@@ -48,7 +48,7 @@ public class AreaMonitor implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "areaId", nullable = false)
+	@JoinColumn(name = "areaId",referencedColumnName="areaId", nullable = false)
 	public Area getArea() {
 		return this.area;
 	}
@@ -58,7 +58,7 @@ public class AreaMonitor implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "monitorId", nullable = false)
+	@JoinColumn(name = "monitorId",referencedColumnName="monitorId", nullable = false)
 	public Monitor getMonitor() {
 		return this.monitor;
 	}

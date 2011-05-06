@@ -10,7 +10,7 @@
 	<import resource="applicationContext-webservice.xml" />
 	<!-- webService user -->
 	<import resource="applicationContext-user-webservice.xml" />
-
+	<import resource="applicationContext-device-webservice.xml" />
 
 	<!-- db resource sessionFactory -->
 	<import resource="applicationContext-dao.xml" />
@@ -24,4 +24,5 @@
 	<!-- server user -->
 	<import resource="applicationContext-user-server.xml" />
 	<import resource="applicationContext-device-server.xml" />
+	<import resource="applicationContext-monitorServer-server.xml" />
 </beans>
