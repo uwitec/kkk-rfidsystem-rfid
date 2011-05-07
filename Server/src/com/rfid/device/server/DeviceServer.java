@@ -95,4 +95,19 @@ public interface DeviceServer {
 	 */
 	boolean updateDeviceDetail(DeviceDetailVo vo) throws Exception;
 	
+	/**
+	 * 设置设备不监控
+	 * @param deviceId
+	 * @return
+	 * @throws Exception 
+	 */
+	boolean setDeviceMonitorDisable(Long deviceId) throws Exception;
+	
+	/**
+	 * 设置设备监控
+	 * @param deviceId
+	 * @return
+	 * @throws Exception 
+	 */
+	boolean setDeviceMonitorEnable(Long deviceId) throws Exception;
 }

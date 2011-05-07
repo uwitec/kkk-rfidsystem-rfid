@@ -187,8 +187,6 @@ public class DeviceServerImpl implements DeviceServer {
 		}
 	}
 
-	
-
 	public boolean deleteDevice(DeviceDetailVo vo) {
 		// TODO Auto-generated method stub
 		return false;
@@ -199,8 +197,24 @@ public class DeviceServerImpl implements DeviceServer {
 		return false;
 	}
 
+	public boolean setDeviceMonitorDisable(Long deviceId) throws Exception {
+		List list = deviceDao.findByDeviceId(deviceId);
+		if(list==null || list.size()==0)
+			throw new Exception("不存在该设备");
+		Device device = (Device)list.get(0);
+		device.setMonitorEnable(0);
+		deviceDao.update(device);
+		return true;
+	}
 
-
-	
+	public boolean setDeviceMonitorEnable(Long deviceId) throws Exception {
+		List list = deviceDao.findByDeviceId(deviceId);
+		if(list==null || list.size()==0)
+			throw new Exception("不存在该设备");
+		Device device = (Device)list.get(0);
+		device.setMonitorEnable(1);
+		deviceDao.update(device);
+		return true;
+	}
 
 }
