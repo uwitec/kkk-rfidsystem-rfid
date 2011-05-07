@@ -11,6 +11,7 @@
 	<!-- webService user -->
 	<import resource="applicationContext-user-webservice.xml" />
 	<import resource="applicationContext-device-webservice.xml" />
+	<import resource="applicationContext-monitorServer-webservice.xml" />
 
 	<!-- db resource sessionFactory -->
 	<import resource="applicationContext-dao.xml" />
