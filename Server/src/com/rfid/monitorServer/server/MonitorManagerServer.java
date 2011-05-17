@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rfid.monitorServer.vo.MonitorAreaVo;
 import com.rfid.monitorServer.vo.MonitorDeviceVo;
+import com.rfid.monitorServer.vo.NodeVo;
 
 public interface MonitorManagerServer {
 
@@ -14,4 +15,6 @@ public interface MonitorManagerServer {
 	 * @throws Exception 
 	 */
 	List<MonitorAreaVo> getAllMonitorAreaAndDeviceByMonitorId(Long monitorId) throws Exception;
+
+	List<NodeVo> getNodeList(String readerIp) throws Exception;
 }

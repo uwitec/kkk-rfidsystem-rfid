@@ -14,7 +14,7 @@
 	<bean id="statusWebService" class="com.rfid.device.server.impl.StatusServerImpl" />
 	
 	
-	<!-- Junit测试时需要注释下面代码-->
+	<!-- Junit测试时需要注释下面代码
 	<bean name="areaService" parent="baseService">
 		<property name="serviceBean" ref="areaWebService" />
 		<property name="serviceClass" value="com.rfid.device.server.AreaServer" />
@@ -39,4 +39,5 @@
 		<property name="serviceBean" ref="statusWebService" />
 		<property name="serviceClass" value="com.rfid.device.server.StatusServer" />
 	</bean> 
+	-->
 </beans>

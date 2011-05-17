@@ -18,4 +18,6 @@
 	
 	<bean id="monitorServer" class="com.rfid.device.server.impl.MonitorServerImpl" />
 	
+	<bean id="nodesServer" class="com.rfid.device.server.impl.NodesServerImpl" />
+	
 </beans>

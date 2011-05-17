@@ -5,10 +5,14 @@ import java.util.List;
 
 import com.rfid.common.constants.PoTools;
 import com.rfid.common.constants.EnumConstant.PoType;
+import com.rfid.device.dao.AreaDao;
 import com.rfid.device.dao.DeviceDao;
 import com.rfid.device.dao.DeviceDetailDao;
+import com.rfid.device.dao.DeviceStatusDao;
+import com.rfid.device.po.Area;
 import com.rfid.device.po.Device;
 import com.rfid.device.po.DeviceDetail;
+import com.rfid.device.po.DeviceStatus;
 import com.rfid.device.server.DeviceServer;
 import com.rfid.device.vo.DeviceDetailVo;
 import com.rfid.device.vo.DeviceVo;
@@ -18,7 +22,25 @@ public class DeviceServerImpl implements DeviceServer {
 
 	private DeviceDao deviceDao;
 	private DeviceDetailDao deviceDetailDao;
+	private AreaDao areaDao;
+	private DeviceStatusDao deviceStatusDao;
 	
+	public AreaDao getAreaDao() {
+		return areaDao;
+	}
+
+	public void setAreaDao(AreaDao areaDao) {
+		this.areaDao = areaDao;
+	}
+
+	public DeviceStatusDao getDeviceStatusDao() {
+		return deviceStatusDao;
+	}
+
+	public void setDeviceStatusDao(DeviceStatusDao deviceStatusDao) {
+		this.deviceStatusDao = deviceStatusDao;
+	}
+
 	public DeviceDetailDao getDeviceDetailDao() {
 		return deviceDetailDao;
 	}
@@ -215,6 +237,21 @@ public class DeviceServerImpl implements DeviceServer {
 		device.setMonitorEnable(1);
 		deviceDao.update(device);
 		return true;
+	}
+
+	public List<DeviceVo> getDeviceListByAreaId(Long areaId) throws Exception {
+		List aList = areaDao.findByAreaId(areaId);
+		if(aList==null || aList.size()<=0)
+			throw new Exception("不存在该区域");
+		List<DeviceStatus> list = deviceStatusDao.findLastByAreaId(areaId);
+		if(list==null || list.size()<=0)
+			return new ArrayList<DeviceVo>();
+		List<DeviceVo> voList = new ArrayList<DeviceVo>();
+		for(DeviceStatus ds : list){
+			DeviceVo vo = ds.getDevice().toDeviceVo();
+			voList.add(vo);
+		}
+		return voList;
 	}
 
 }
