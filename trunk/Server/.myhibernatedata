@@ -1,5 +1,5 @@
 #MyEclipse Hibernate Properties
-#Thu Apr 14 15:49:19 GMT 2011
+#Mon May 16 17:19:15 GMT 2011
 sessionFactoryName=com.rfid.common.db.hibernate.HibernateSessionFactory
 genBasicCompId=true
 profile=

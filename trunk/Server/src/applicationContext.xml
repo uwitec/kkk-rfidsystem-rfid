@@ -6,6 +6,25 @@
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
 	default-autowire="byName">
 
+<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.SQLServerDialect
+				</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.rfid.*.po</value>
+			</list>
+		</property>
+	</bean>
+
 	<!-- webService -->
 	<import resource="applicationContext-webservice.xml" />
 	<!-- webService user -->

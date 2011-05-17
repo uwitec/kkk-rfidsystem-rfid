@@ -23,4 +23,11 @@ public class MonitorServerTest extends TestCase {
 		assertNotNull(malist);
 		assertTrue(malist.size()>0);
 	}
+	
+	public void testGetNodeList() throws Exception{
+		MonitorManagerServer server = (MonitorManagerServer)SpringBeanUtils.getBean("monitorManagerServer");
+		List list = server.getNodeList("192.168.1.1");
+		assertNotNull(list);
+		assertTrue(list.size()>0);
+	}
 }

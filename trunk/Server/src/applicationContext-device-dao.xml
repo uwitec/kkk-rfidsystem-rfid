@@ -6,7 +6,6 @@
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
 	default-autowire="byName">
 
-
 	<bean id="deviceStatusDao" class="com.rfid.device.dao.impl.DeviceStatusDaoImpl"/>
 	<bean id="monitorDao" class="com.rfid.device.dao.impl.MonitorDaoImpl"/>
 	<bean id="statusDao" class="com.rfid.device.dao.impl.StatusDaoImpl"/>
@@ -16,5 +15,5 @@
 	<bean id="deviceDetailDao" class="com.rfid.device.dao.impl.DeviceDetailDaoImpl"/>
 	<bean id="areaMonitorDao" class="com.rfid.device.dao.impl.AreaMonitorDaoImpl"/>
 	<bean id="deviceDao" class="com.rfid.device.dao.impl.DeviceDaoImpl"/>
-	
+	<bean id="nodesDao" class="com.rfid.device.dao.impl.NodesDaoImpl"/>
 </beans>

@@ -10,7 +10,7 @@ public class DeviceManagerServerTest extends TestCase{
 	public void testAssignDeviceToArea() throws Exception{
 		DeviceManagerServer server = (DeviceManagerServer)SpringBeanUtils.getBean("deviceManagerServer");
 		server.assignDeviceToArea(
-				Long.parseLong("2002011042403393164")
+				Long.parseLong("2002011050505111287")
 			  , Long.parseLong("3002011050402592162"));
 	}
 	

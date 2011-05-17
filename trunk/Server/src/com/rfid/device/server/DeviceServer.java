@@ -110,4 +110,11 @@ public interface DeviceServer {
 	 * @throws Exception 
 	 */
 	boolean setDeviceMonitorEnable(Long deviceId) throws Exception;
+	
+	/**
+	 * @param areaId
+	 * @return
+	 * @throws Exception
+	 */
+	List<DeviceVo> getDeviceListByAreaId(Long areaId) throws Exception;
 }

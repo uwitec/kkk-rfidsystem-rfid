@@ -74,4 +74,12 @@ public class DeviceServerTest extends MyLazyTestCase {
 		vo.setPurchaseDate(new Date());
 		assertNotNull(server.addDeviceDetail(vo));
 	}
+	
+	public void testGetDeviceVoListByAreaId() throws Exception{
+		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+		List list = server.getDeviceListByAreaId(Long.valueOf("3002011050402592162"));
+		assertNotNull(list);
+		System.out.println(list.size());
+		assertTrue(list.size()>0);
+	}
 }
