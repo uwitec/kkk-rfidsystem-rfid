@@ -69,6 +69,7 @@
 		<display-name>This is the display name of my J2EE component</display-name>
 		<servlet-name>AccessPoint</servlet-name>
 		<servlet-class>com.rfid.access.AccessPoint</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>

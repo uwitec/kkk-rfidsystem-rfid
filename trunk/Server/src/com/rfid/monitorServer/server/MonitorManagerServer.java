@@ -17,4 +17,6 @@ public interface MonitorManagerServer {
 	List<MonitorAreaVo> getAllMonitorAreaAndDeviceByMonitorId(Long monitorId) throws Exception;
 
 	List<NodeVo> getNodeList(String readerIp) throws Exception;
+	
+	NodeVo[] getNodeArray(String readerIp) throws Exception;
 }
