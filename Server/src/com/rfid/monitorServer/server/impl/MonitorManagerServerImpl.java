@@ -159,4 +159,11 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 		return nvoList;
 	}
 
+	public NodeVo[] getNodeArray(String readerIp) throws Exception {
+		List<NodeVo> list = getNodeList(readerIp);
+		if(list == null || list.size()<=0)
+			return new NodeVo[0];
+		return (NodeVo[]) list.toArray();
+	}
+
 }

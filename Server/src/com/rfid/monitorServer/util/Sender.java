@@ -24,7 +24,7 @@ public class Sender extends Thread{
 		try{
 			oos=new ObjectOutputStream( socket.getOutputStream() );
 		}catch(Exception ex){
-			//ex.printStackTrace();
+			ex.printStackTrace();
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class Sender extends Thread{
 				oos.flush();
 			}
 		}catch (Exception ex) {
-			//ex.printStackTrace();
+			ex.printStackTrace();
 		}
 			
 	}

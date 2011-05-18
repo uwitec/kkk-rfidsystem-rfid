@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.rfid.monitorServer.util.ClientHandler;
+import com.rfid.monitorServer.util.Information;
+import com.rfid.monitorServer.util.ServerHandler;
+import com.rfid.monitorServer.util.ServerStartThread;
 
 public class AccessPoint extends HttpServlet {
 
@@ -70,12 +77,19 @@ public class AccessPoint extends HttpServlet {
 		
 	}
 
+	
 	/**
 	 * Initialization of the servlet. <br>
 	 *
 	 * @throws ServletException if an error occurs
 	 */
 	public void init() throws ServletException {
-		// Put your code here
+		try {
+			Thread s = new ServerStartThread();
+			s.setDaemon(true);// 设置线程为后台线程，使tomcat重启的时候自动退出。
+			s.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

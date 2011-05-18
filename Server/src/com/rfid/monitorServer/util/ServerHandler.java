@@ -24,7 +24,9 @@ public class ServerHandler extends Thread{
 		this.senderQueue=new LinkedBlockingQueue<Object>();//创建一个无限制的阻塞队列
 		this.receiverQueue=new LinkedBlockingQueue<Object>();
 		aSender = new Sender(socket,senderQueue);
+//		aSender.setDaemon(true);
 		aReceiver = new Receiver(socket,receiverQueue);
+		aReceiver.setDaemon(true);
 		aSender.start();
 		aReceiver.start();
 		flag = true;
@@ -35,9 +37,8 @@ public class ServerHandler extends Thread{
 		try {
 			System.out.println("Send a info");
 			this.senderQueue.put(info);
-			
 		} catch (InterruptedException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 	}
@@ -56,7 +57,7 @@ public class ServerHandler extends Thread{
 					case 1:
 						info.setType(1);
 						System.out.println("Received");
-						senderQueue.put(info);
+						//senderQueue.put(info);
 						flag = false;
 						break;
 					case 2:
@@ -64,8 +65,9 @@ public class ServerHandler extends Thread{
 					}
 				}
 			}catch (InterruptedException e) {
-				//e.printStackTrace();
-			}//不断的去提取接收队列里面的对象		
+				e.printStackTrace();
+			}//不断的去提取接收队列里面的对象	
 		}
+		
 	}	
 }
