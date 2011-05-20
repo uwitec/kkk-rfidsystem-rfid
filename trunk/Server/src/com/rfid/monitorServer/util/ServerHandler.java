@@ -142,20 +142,23 @@ public class ServerHandler extends Thread {
 		return info;
 	}
 	
+	private Information updateDeviceName(NodeVo vo){
+		Information info = new Information();
+		info.setType(5);
+		info.setContent(vo);
+		return info;
+	}
+	
 	public void run() { // 服务端处理器就绪时通知客户端处理器可以构建完成
 		System.out.println("I am ready");
 		while (flag) {
 			try {// 接收响应，在用户端的处理
 				Object obj = receiverQueue.take();// self-blocking to wait a
-//				System.out.println("Take a object");
 				String readerIp = this.socket.getInetAddress().toString();
 				if(readerIp.indexOf("/")==0)
 					readerIp = readerIp.substring(1,readerIp.length()).trim(); 
-//				System.out.println(readerIp);
 				if (obj instanceof Information) {
 					info = (Information) obj;
-					// According to the type of information to execute this
-					// responding transaction or operation
 					switch (info.getType()) {
 					case 1:
 						info = getAllNode(readerIp);
@@ -177,6 +180,19 @@ public class ServerHandler extends Thread {
 						}
 						break;
 					case 4:
+						NodeVo vo4 = (NodeVo) info.getContent();
+						if(vo4!=null){
+							updateState(vo4);
+							flag = false;
+						}
+						break;
+					case 5:
+						NodeVo vo5 = (NodeVo) info.getContent();
+						if(vo5!=null){
+							info = updateDeviceName(vo5);
+							senderQueue.put(info);
+							flag = false;
+						}
 						break;
 					default:
 					}

@@ -224,4 +224,14 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 		vo.setB(NodeId);
 		cHandler.sendInformation( new Information(3,vo) );
 	}
+	
+	public void updateDeviceNameToNode(int NodeId,String deviceName) throws Exception{
+		Socket s = new Socket( "localhost", 10000 );
+		ClientHandler cHandler = new ClientHandler(s);
+		cHandler.start();
+		NodeVo vo = new NodeVo();
+		vo.setB(NodeId);
+		vo.setDeviceName(deviceName);
+		cHandler.sendInformation( new Information(5,vo) );
+	}
 }
