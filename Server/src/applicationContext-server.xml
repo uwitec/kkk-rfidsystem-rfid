@@ -20,6 +20,8 @@
 			<tx:method name="get*" read-only="true" />
 			<tx:method name="add*" propagation="REQUIRED"
 				rollback-for="Throwable" />
+			<tx:method name="reg*" propagation="REQUIRED"
+				rollback-for="Throwable" />
 			<tx:method name="save*" propagation="REQUIRED"
 				rollback-for="Throwable" />
 			<tx:method name="update*" propagation="REQUIRED"
@@ -35,6 +37,8 @@
 			<tx:method name="assign*" propagation="REQUIRED"
 				rollback-for="Throwable" />
 			<tx:method name="modify*" propagation="REQUIRED"
+				rollback-for="Throwable" />
+			<tx:method name="test*" propagation="REQUIRED"
 				rollback-for="Throwable" />
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>

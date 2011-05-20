@@ -10,61 +10,71 @@ import com.rfid.test.common.MyLazyTestCase;
 import com.rfid.test.common.SpringBeanUtils;
 
 public class DeviceServerTest extends MyLazyTestCase {
-	
-	public void testGetAllDevice(){
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+
+	public void testGetAllDevice() {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
 		List list = server.getAllDevice();
 		assertNotNull(list);
-		assertTrue(list.size()>0);
+		assertTrue(list.size() > 0);
 	}
-	
-	public void testGetAllDeviceMonitor(){
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+
+	public void testGetAllDeviceMonitor() {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
 		List list = server.getAllDeviceMonitor();
 		assertNotNull(list);
 		System.out.println(list.size());
-		assertTrue(list.size()>0);
+		assertTrue(list.size() > 0);
 	}
-	
-	public void testGetAllDeviceDetail() throws Exception{
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+
+	public void testGetAllDeviceDetail() throws Exception {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
 		List list = server.getAllDeviceDetailMonitor();
 		assertNotNull(list);
 		System.out.println(list.size());
-		assertTrue(list.size()>0);
+		assertTrue(list.size() > 0);
 	}
-	
-	public void testGetDeviceByDeviceId(){
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
-		DeviceVo vo = server.getDeviceByDeviceId(Long.parseLong("2002011042403393164"));
+
+	public void testGetDeviceByDeviceId() {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
+		DeviceVo vo = server.getDeviceByDeviceId(Long
+				.parseLong("2002011042403393164"));
 		System.out.print(vo.getId());
 		assertNotNull(vo);
 	}
-	
-	public void testGetDeviceDetailByDeviceId(){
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
-		DeviceDetailVo vo = server.getDeviceDetailByDeviceId(Long.parseLong("2002011042403393163"));
+
+	public void testGetDeviceDetailByDeviceId() {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
+		DeviceDetailVo vo = server.getDeviceDetailByDeviceId(Long
+				.parseLong("2002011042403393163"));
 		assertNotNull(vo);
 		System.out.print(vo.getId());
 	}
-	
-	public void testGetDeviceDetailByDeviceName(){
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+
+	public void testGetDeviceDetailByDeviceName() {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
 		DeviceDetailVo vo = server.getDeviceDetailByDeviceName("电脑服务器");
 		System.out.print(vo.getManufactory());
 		assertNotNull(vo);
 	}
-	
-	public void testAddDevice() throws Exception{
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+
+	public void testAddDevice() throws Exception {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
 		DeviceVo vo = new DeviceVo();
 		vo.setMonitorEnable(0);
 		vo.setDeviceId(Long.parseLong("2002011050505022072"));
 		assertNotNull(server.addDevice(vo));
 	}
-	
-	public void testAddDeviceDetail() throws Exception{
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
+
+	public void testAddDeviceDetail() throws Exception {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
 		DeviceDetailVo vo = new DeviceDetailVo();
 		vo.setBuyer("李老师");
 		vo.setDeviceName("分频器");
@@ -74,12 +84,39 @@ public class DeviceServerTest extends MyLazyTestCase {
 		vo.setPurchaseDate(new Date());
 		assertNotNull(server.addDeviceDetail(vo));
 	}
-	
-	public void testGetDeviceVoListByAreaId() throws Exception{
-		DeviceServer server = (DeviceServer)SpringBeanUtils.getBean("deviceServer");
-		List list = server.getDeviceListByAreaId(Long.valueOf("3002011050402592162"));
+
+	public void testGetDeviceVoListByAreaId() throws Exception {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+				.getBean("deviceServer");
+		List list = server.getDeviceListByAreaId(Long
+				.valueOf("3002011050402592162"));
 		assertNotNull(list);
 		System.out.println(list.size());
-		assertTrue(list.size()>0);
+		assertTrue(list.size() > 0);
+	}
+
+	public void testUpdateDeviceDetail() throws Exception {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+		.getBean("deviceServer");
+		DeviceDetailVo vo = new DeviceDetailVo();
+		DeviceVo d = new DeviceVo();
+		d.setDeviceId(Long.parseLong("2002011042403393164"));
+		vo.setDeviceVo(d);
+		vo.setBuyer("周丽霞");
+		boolean list = server.updateDeviceDetail(vo);
+		assertTrue(list);
+	}
+	
+	public void testDeleteDeviceDetailByDeviceId() throws Exception {
+		DeviceServer server = (DeviceServer) SpringBeanUtils
+		.getBean("deviceServer");
+//		DeviceDetailVo vo = new DeviceDetailVo();
+//		DeviceVo d = new DeviceVo();
+//		d.setDeviceId(Long.parseLong("2002011042403393164"));
+//		vo.setDeviceVo(d);
+//		vo.setBuyer("周丽霞");
+		boolean list = server.deleteDeviceByDeviceId(
+				Long.parseLong("2002011052007092251"));
+		assertTrue(list);
 	}
 }

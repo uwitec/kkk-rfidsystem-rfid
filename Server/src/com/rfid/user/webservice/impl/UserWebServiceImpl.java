@@ -9,7 +9,6 @@ public class UserWebServiceImpl implements UserWebService {
 	UserServer userServer;
 	
 	public UsersVo getUserByLoginNamePassWord(String loginName, String passWord) throws Exception {
-		// TODO Auto-generated method stub
 		UsersVo vo = userServer.getUsersByLoginNamePassWord(loginName,passWord);
 		if(vo==null)
 			return null;
@@ -26,7 +25,6 @@ public class UserWebServiceImpl implements UserWebService {
 	}
 
 	public boolean isLoginUser(String loginName, String passWord) throws Exception {
-		// TODO Auto-generated method stub
 		UsersVo vo = userServer.getUsersByLoginNamePassWord(loginName, passWord);
 		if(vo==null)
 			return false;
@@ -34,8 +32,6 @@ public class UserWebServiceImpl implements UserWebService {
 	}
 
 	public boolean regUser(UsersVo users) {
-		// TODO Auto-generated method stub
-		
 		return false;
 	}
 

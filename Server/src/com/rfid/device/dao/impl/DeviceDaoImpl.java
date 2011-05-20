@@ -64,6 +64,20 @@ public class DeviceDaoImpl extends HibernateGenericDao<Device, Long>
 		}
 	}
 
+	public void deleteByDeviceId(Long deviceId) {
+		log.debug("deleting Device instance");
+		try {
+			List obj = this.findByDeviceId(deviceId);
+			if(obj==null || obj.size()<=0)
+				return;
+			getHibernateTemplate().delete(obj.get(0));
+			log.debug("delete successful");
+		} catch (RuntimeException re) {
+			log.error("delete failed", re);
+			throw re;
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.rfid.device.dao.impl.DeviceDao#findById(java.lang.Long)
 	 */
@@ -187,4 +201,6 @@ public class DeviceDaoImpl extends HibernateGenericDao<Device, Long>
 	public static DeviceDao getFromApplicationContext(ApplicationContext ctx) {
 		return (DeviceDao) ctx.getBean("DeviceDAO");
 	}
+
+
 }

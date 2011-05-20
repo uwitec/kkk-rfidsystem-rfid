@@ -10,6 +10,32 @@ public interface EnumConstant {
 	int READER_POTYPE_NO = 610;
 	int MONITOR_POTYPE_NO = 600;
 	
+	String ADMIN_TYPE_NO = "50001";
+	String USER_TYPE_NO = "50002";
+	String LEADER_TYPE_NO = "50005";
+	
+	public enum RoleType{
+		AdminType{
+			@Override
+			public Long getInfo() {
+				return Long.parseLong(ADMIN_TYPE_NO);
+			}
+		}
+		,UserType{
+			@Override
+			public Long getInfo() {
+				return Long.parseLong(USER_TYPE_NO);
+			}
+		}
+		,LeaderType{
+			@Override
+			public Long getInfo() {
+				return Long.parseLong(LEADER_TYPE_NO);
+			}
+		};
+		public abstract Long getInfo();
+	}
+	
 	public enum PoType{
 		UserType{
 			String getInfo(){

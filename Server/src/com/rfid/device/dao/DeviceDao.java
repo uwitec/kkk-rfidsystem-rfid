@@ -30,4 +30,6 @@ public interface DeviceDao extends GenericDao<Device,Long>{
 	public void attachDirty(Device instance);
 
 	public void attachClean(Device instance);
+
+	public void deleteByDeviceId(Long deviceId);
 }

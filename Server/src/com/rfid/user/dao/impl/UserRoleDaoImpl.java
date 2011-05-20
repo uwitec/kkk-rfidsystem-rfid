@@ -172,4 +172,22 @@ public class UserRoleDaoImpl extends HibernateGenericDao<UserRole, Long>
 	public static UserRoleDao getFromApplicationContext(ApplicationContext ctx) {
 		return (UserRoleDao) ctx.getBean("UserRoleDAO");
 	}
+
+	public boolean hasUserRole(Long userId, Long roleId) {
+		log.debug("finding UserRole instance with property:" +
+				" userId , value: " + userId
+			   +" roleId , value: " + roleId);
+		try {
+			String queryString = "from UserRole as model where " +
+					" model.users.userid " + " = ? "
+					+ " and model.roles.roleId " + " = ? ";
+			List list = getHibernateTemplate().find(queryString, userId,roleId);
+			if(list==null || list.size()<=0)
+				return false;
+			return true;
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 }

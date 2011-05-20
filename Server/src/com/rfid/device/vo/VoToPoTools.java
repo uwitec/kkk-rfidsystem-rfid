@@ -41,7 +41,7 @@ public class VoToPoTools {
 		if(vo.getDeviceVo()!=null)
 			dd.setDevice(VoToPoTools.toDevice(vo.getDeviceVo()));
 		else{
-			dd.setDevice(VoToPoTools.toDevice(new DeviceVo()));
+			dd.setDevice(VoToPoTools.toDevice(null));
 		}
 		if(vo.getId()!=null && vo.getId()!=0)
 			dd.setId(vo.getId());
@@ -104,7 +104,6 @@ public class VoToPoTools {
 	}
 
 	public static Monitor toMonitor(MonitorVo vo) {
-		// TODO Auto-generated method stub
 		Monitor m = new Monitor();
 		if(vo.getId()!=null && vo.getId()>0)
 			m.setId(vo.getId());

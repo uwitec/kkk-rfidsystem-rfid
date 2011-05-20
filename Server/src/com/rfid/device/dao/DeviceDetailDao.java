@@ -38,4 +38,6 @@ public interface DeviceDetailDao extends GenericDao<DeviceDetail,Long>{
 
 	public DeviceDetail findByDeviceId(Long deviceId);
 
+	public void deleteByDeviceId(Long deviceId);
+
 }

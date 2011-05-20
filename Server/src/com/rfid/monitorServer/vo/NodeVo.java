@@ -1,6 +1,8 @@
 package com.rfid.monitorServer.vo;
 
-public class NodeVo {
+import java.io.Serializable;
+
+public class NodeVo implements Serializable{
 
 	public NodeVo(int b, String deviceName, int level) {
 		super();
@@ -10,8 +12,10 @@ public class NodeVo {
 	}
 	public NodeVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * 对应节点编码
+	 */
 	int b;
 	public int getB() {
 		return b;

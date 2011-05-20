@@ -114,7 +114,6 @@ public class Roles implements java.io.Serializable {
 
 	@Transient 
 	public RolesVo toRolesVo() {
-		// TODO Auto-generated method stub
 		RolesVo vo = new RolesVo();
 //		private Long id;
 		if(this.getId()!=null)
