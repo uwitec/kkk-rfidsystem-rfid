@@ -6,6 +6,7 @@ import com.rfid.device.server.StatusServer;
 import com.rfid.monitorServer.server.MonitorManagerServer;
 import com.rfid.monitorServer.vo.MonitorAreaVo;
 import com.rfid.monitorServer.vo.MonitorDeviceVo;
+import com.rfid.monitorServer.vo.NodeVo;
 import com.rfid.test.common.SpringBeanUtils;
 
 import junit.framework.TestCase;
@@ -29,5 +30,15 @@ public class MonitorServerTest extends TestCase {
 		List list = server.getNodeList("192.168.1.1");
 		assertNotNull(list);
 		assertTrue(list.size()>0);
+	}
+	
+	public void testUpdateDeviceState() throws Exception{
+		MonitorManagerServer server 
+			= (MonitorManagerServer)SpringBeanUtils.getBean("monitorManagerServer");
+		NodeVo vo = new NodeVo();
+		vo.setB(7);
+		vo.setDeviceName("fff");
+		vo.setLevel(5);
+		server.updateDeviceState(vo);
 	}
 }

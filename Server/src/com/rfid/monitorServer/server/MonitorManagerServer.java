@@ -19,4 +19,8 @@ public interface MonitorManagerServer {
 	List<NodeVo> getNodeList(String readerIp) throws Exception;
 	
 	NodeVo[] getNodeArray(String readerIp) throws Exception;
+
+	void updateDeviceState(NodeVo vo) throws Exception;
+	
+	void checkDeviceByNodeId(int NodeId) throws Exception;
 }
