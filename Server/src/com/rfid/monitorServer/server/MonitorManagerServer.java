@@ -23,4 +23,6 @@ public interface MonitorManagerServer {
 	void updateDeviceState(NodeVo vo) throws Exception;
 	
 	void checkDeviceByNodeId(int NodeId) throws Exception;
+	
+	void updateDeviceNameToNode(int NodeId,String deviceName) throws Exception;
 }
