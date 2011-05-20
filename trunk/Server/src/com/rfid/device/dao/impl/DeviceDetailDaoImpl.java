@@ -229,4 +229,18 @@ public class DeviceDetailDaoImpl extends HibernateGenericDao<DeviceDetail, Long>
 			throw re;
 		}
 	}
+
+	public void deleteByDeviceId(Long deviceId) {
+		log.debug("deleting DeviceDetail instance");
+		try {
+			DeviceDetail obj = this.findByDeviceId(deviceId);
+			if(obj == null)
+				return;
+			this.delete(obj);
+			log.debug("delete successful");
+		} catch (RuntimeException re) {
+			log.error("delete failed", re);
+			throw re;
+		}
+	}
 }

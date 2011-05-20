@@ -1,5 +1,6 @@
 package com.rfid.device.server.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -200,7 +201,29 @@ public class DeviceServerImpl implements DeviceServer {
 	public boolean updateDeviceDetail(DeviceDetailVo vo) throws Exception {
 		// 只更改信息，不更改状态。
 		try{
-			DeviceDetail dd = VoToPoTools.toDeviceDetail(vo);
+			if(vo.getDeviceVo()==null){
+				throw new Exception("请填写deviceVo");
+			}
+			else if(vo.getDeviceVo().getDeviceId() == null 
+					|| vo.getDeviceVo().getDeviceId()<=0){
+				throw new Exception("请填写deviceId");
+			}
+			Long deviceId = vo.getDeviceVo().getDeviceId();
+			DeviceDetail dd = deviceDetailDao.findByDeviceId(deviceId);
+			if(dd==null)
+				throw new Exception("不存在该仪器");
+			if(vo.getBuyer()!=null && !"".equals(vo.getBuyer()))
+				dd.setBuyer(vo.getBuyer());
+			if(vo.getDeviceName()!=null && !"".equals(vo.getDeviceName()))
+				dd.setDeviceName(vo.getDeviceName());
+			if(vo.getDeviceNum()!=null && vo.getDeviceNum()>=0)
+				dd.setDeviceNum(vo.getDeviceNum());
+			if(vo.getManufactory()!=null && !"".equals(vo.getManufactory()))
+				dd.setManufactory(vo.getManufactory());
+			if(vo.getPrice()!=null && vo.getPrice()>=0)
+				dd.setPrice(vo.getPrice());
+			if(vo.getPurchaseDate()!=null)
+				dd.setPurchaseDate(new Timestamp(vo.getPurchaseDate().getTime()));
 			deviceDetailDao.update(dd);
 			return true;
 		}catch(Exception ex)
@@ -209,14 +232,23 @@ public class DeviceServerImpl implements DeviceServer {
 		}
 	}
 
-	public boolean deleteDevice(DeviceDetailVo vo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteDeviceDetailByDeviceId(Long deviceId) throws Exception {
+		try{
+			deviceDetailDao.deleteByDeviceId(deviceId);
+			return true;
+		}catch(Exception ex)
+		{
+			throw ex;
+		}
 	}
 
-	public boolean deleteDevice(DeviceVo vo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteDeviceByDeviceId(Long deviceId) throws Exception {
+		try{
+			deviceDao.deleteByDeviceId(deviceId);
+			return true;
+		}catch(Exception ex){
+			throw ex;
+		}
 	}
 
 	public boolean setDeviceMonitorDisable(Long deviceId) throws Exception {

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import com.rfid.user.vo.UserDetailVo;
@@ -119,22 +120,29 @@ public class UserDetail implements java.io.Serializable {
 		this.connection = connection;
 	}
 
+	@Transient
 	public UserDetailVo toUserDetailVo(){
 		UserDetailVo vo = new UserDetailVo();
 //		private Long id;
-		vo.setId(getId());
+		if(this.getId()!=null && this.getId()>0)
+			vo.setId(getId());
 //		private String userName;
-		vo.setUserName(getUserName());
+		if(this.getUserName()!=null)	
+			vo.setUserName(getUserName());
 //		private Timestamp birthday;
-		vo.setBirthday(getBirthday());
+		if(this.getBirthday()!=null)
+			vo.setBirthday(getBirthday());
 //		private String userAddress;
-		vo.setUserAddress(getUserAddress());
+		if(this.getUserAddress()!=null)
+			vo.setUserAddress(getUserAddress());
 //		private Timestamp registerTime;
-		vo.setRegisterTime(getRegisterTime());
+		if(this.getRegisterTime()!=null)
+			vo.setRegisterTime(getRegisterTime());
 //		private String connection;
-		vo.setConnection(getConnection());
-		
-		vo.setUsersVo(getUsers().toUsersVO());
+		if(this.getConnection()!=null)
+			vo.setConnection(getConnection());
+		if(this.getUsers()!=null)
+			vo.setUsersVo(getUsers().toUsersVO());
 		return vo;
 	}
 }

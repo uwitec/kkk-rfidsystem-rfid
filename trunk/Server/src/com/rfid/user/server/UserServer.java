@@ -39,8 +39,8 @@ public interface UserServer {
 	 * @return 报错信息或者其他信息
 	 * @throws Exception 
 	 */
-	public boolean regUsers(UsersVo userVo) throws Exception;
-	public boolean regUsersDetail(UserDetailVo userDetailVo) throws Exception;
+	public Long regUsers(UsersVo userVo) throws Exception;
+	public Long regUsersDetail(UserDetailVo userDetailVo) throws Exception;
 	
 	/**
 	 * 判断是否存在此用户名
@@ -56,5 +56,7 @@ public interface UserServer {
 	 */
 	public List<UsersVo> getAllUsers();
 	public List<UserDetailVo> getAllUserDetail();
+	
+	public void updateUserDetail(UserDetailVo vo) throws Exception;
 	
 }

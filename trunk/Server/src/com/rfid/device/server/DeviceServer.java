@@ -75,9 +75,10 @@ public interface DeviceServer {
 	 * @param vo 需要删除的设备的查找信息
 	 * 根据此输入的对象，查找需要删除的设备
 	 * @return
+	 * @throws Exception 
 	 */
-	boolean deleteDevice(DeviceVo vo);
-	boolean deleteDevice(DeviceDetailVo vo);
+	boolean deleteDeviceByDeviceId(Long deviceId) throws Exception;
+	boolean deleteDeviceDetailByDeviceId(Long deviceId) throws Exception;
 	/**
 	 * 更新设备
 	 * @param vo 需要跟新的设备的查找信息

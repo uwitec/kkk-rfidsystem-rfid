@@ -9,4 +9,6 @@
 	<bean id="userServer" class="com.rfid.user.server.impl.UserServerImpl" />
 	
 	<bean id="rolesServer" class="com.rfid.user.server.impl.RolesServerImpl" />
+	
+	<bean id="userRoleServer" class="com.rfid.user.server.impl.UserRoleServerImpl" />
 </beans>

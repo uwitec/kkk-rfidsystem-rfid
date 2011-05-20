@@ -26,4 +26,6 @@ public interface UserRoleDao extends GenericDao<UserRole,Long>{
 
 	public void attachClean(UserRole instance);
 
+	public boolean hasUserRole(Long userId, Long roleId);
+
 }

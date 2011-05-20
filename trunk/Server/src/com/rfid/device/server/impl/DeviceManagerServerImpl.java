@@ -169,7 +169,6 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 	
 	@SuppressWarnings("unchecked")
 	public void assignDeviceToUser(Long deviceId, Long userId) throws Exception {
-		// TODO Auto-generated method stub
 		List dList = deviceDao.findByDeviceId(deviceId);
 		if(dList==null || dList.size()<=0)
 			throw new Exception("不存在该设备");

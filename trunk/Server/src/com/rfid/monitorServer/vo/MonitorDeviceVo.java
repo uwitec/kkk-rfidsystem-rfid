@@ -7,7 +7,6 @@ public class MonitorDeviceVo {
 	private int level;
 	public MonitorDeviceVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public MonitorDeviceVo(Long deviceId, Long statusId, int level) {
 		super();

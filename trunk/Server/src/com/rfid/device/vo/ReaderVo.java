@@ -14,7 +14,6 @@ public class ReaderVo {
 	
 	public ReaderVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ReaderVo(Long id, Long readerid, String readerIp) {

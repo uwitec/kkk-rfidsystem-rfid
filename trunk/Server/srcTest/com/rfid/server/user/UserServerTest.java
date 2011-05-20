@@ -47,17 +47,28 @@ public class UserServerTest extends MyLazyTestCase{
 	}
 
 	public void testRegUsers() throws Exception{
-//		UserServer server = (UserServer)SpringBeanUtils.getBean("userServer");
-//		UsersVo vo = new UsersVo();
-//		vo.setLoginName("lyj");
-//		vo.setLoginPassword("lyj");
-//		List<RolesVo> userRoles = new ArrayList();
-//		RolesServer roleServer = (RolesServer)SpringBeanUtils.getBean("rolesServer");
-//		RolesVo roleVo = roleServer.getRoleByRoleName(roleName)
-//		userRoles.add();
-//		vo.setUserRoles(userRoles);
-//		boolean b = server.regUsers(vo);
+		UserServer server = (UserServer)SpringBeanUtils.getBean("userServer");
+		UsersVo vo = new UsersVo();
+		vo.setLoginName("lyj");
+		vo.setLoginPassword("lyj");
+		server.regUsers(vo);
 	}
 	
-
+	public void testRegUsersDetail() throws Exception{
+		UserServer server = (UserServer)SpringBeanUtils.getBean("userServer");
+		UsersVo vo = new UsersVo();
+		vo.setLoginName("cwh");
+		vo.setLoginPassword("cwh");
+		UserDetailVo udVo = new UserDetailVo();
+		udVo.setUsersVo(vo);
+		server.regUsersDetail(udVo);
+	}
+	
+	public void testUpdateUserDetail() throws Exception{
+		UserServer server = (UserServer)SpringBeanUtils.getBean("userServer");
+		UserDetailVo udVo = server.getUserDetailByUserId(
+				Long.parseLong("1002011052009282295"));
+		udVo.setUserName("普通用户");
+		server.updateUserDetail(udVo);
+	}
 }
