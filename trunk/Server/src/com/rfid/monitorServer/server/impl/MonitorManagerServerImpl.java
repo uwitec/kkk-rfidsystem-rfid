@@ -1,5 +1,8 @@
 package com.rfid.monitorServer.server.impl;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,18 +13,23 @@ import com.rfid.device.dao.DeviceStatusDao;
 import com.rfid.device.dao.MonitorDao;
 import com.rfid.device.dao.NodesDao;
 import com.rfid.device.dao.ReaderDao;
+import com.rfid.device.dao.StatusDao;
 import com.rfid.device.po.Area;
 import com.rfid.device.po.AreaMonitor;
 import com.rfid.device.po.DeviceStatus;
 import com.rfid.device.po.Monitor;
 import com.rfid.device.po.Nodes;
 import com.rfid.device.po.Reader;
+import com.rfid.device.po.Status;
+import com.rfid.device.server.DeviceManagerServer;
 import com.rfid.device.server.DeviceServer;
 import com.rfid.device.vo.AreaVo;
 import com.rfid.device.vo.DeviceDetailVo;
 import com.rfid.device.vo.DeviceVo;
 import com.rfid.device.vo.ReaderVo;
 import com.rfid.monitorServer.server.MonitorManagerServer;
+import com.rfid.monitorServer.util.ClientHandler;
+import com.rfid.monitorServer.util.Information;
 import com.rfid.monitorServer.vo.MonitorAreaVo;
 import com.rfid.monitorServer.vo.MonitorDeviceVo;
 import com.rfid.monitorServer.vo.NodeVo;
@@ -35,7 +43,25 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 	private AreaDao areaDao;
 	private DeviceServer deviceServer;
 	private NodesDao nodesDao;
+	private DeviceManagerServer deviceManagerServer;
+	private StatusDao statusDao;
 	
+	public StatusDao getStatusDao() {
+		return statusDao;
+	}
+
+	public void setStatusDao(StatusDao statusDao) {
+		this.statusDao = statusDao;
+	}
+
+	public DeviceManagerServer getDeviceManagerServer() {
+		return deviceManagerServer;
+	}
+
+	public void setDeviceManagerServer(DeviceManagerServer deviceManagerServer) {
+		this.deviceManagerServer = deviceManagerServer;
+	}
+
 	public NodesDao getNodesDao() {
 		return nodesDao;
 	}
@@ -136,15 +162,15 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 	public List<NodeVo> getNodeList(String readerIp) throws Exception {
 		List readerList = readerDao.findByReaderIp(readerIp);
 		if(readerList == null || readerList.size()<=0)
-			new Exception("此读写器Ip不存在");
+			throw new Exception("此读写器Ip不存在");
 		Reader reader = (Reader)readerList.get(0);
 		List areaList = areaDao.findByProperty("reader.readerid", reader.getReaderid());
 		if(areaList == null || areaList.size()<=0)
-			new Exception("区域内不存在此读写器");
+			throw new Exception("区域内不存在此读写器");
 		Area area = (Area)areaList.get(0);
 		List<DeviceVo> dList = deviceServer.getDeviceListByAreaId(area.getAreaId());
 		if(dList == null || dList.size()<=0)
-			new Exception("此区域内不存在监控设备");
+			throw new Exception("此区域内不存在监控设备");
 		List<NodeVo> nvoList = new ArrayList<NodeVo>();
 		for(DeviceVo dv : dList){
 			List nList = nodesDao.findByProperty("device.deviceId", dv.getDeviceId());
@@ -160,10 +186,42 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 	}
 
 	public NodeVo[] getNodeArray(String readerIp) throws Exception {
-		List<NodeVo> list = getNodeList(readerIp);
-		if(list == null || list.size()<=0)
-			return new NodeVo[0];
-		return (NodeVo[]) list.toArray();
+		try{
+			List<NodeVo> list = getNodeList(readerIp);
+			if(list == null || list.size()<=0)
+				return new NodeVo[0];
+			NodeVo[] vos = new NodeVo[list.size()];
+			int i= 0;
+			for(NodeVo v : list){
+				vos[i]=v;
+				i++;
+			}
+			return vos;
+		}catch(Exception ex){
+			throw ex;
+		}
 	}
 
+	public void updateDeviceState(NodeVo vo) throws Exception {
+		List<Nodes> nodeList = nodesDao.findByNodeId(vo.getB());
+		if(nodeList == null || nodeList.size()<=0)
+			throw new Exception("不存在该节点");
+		Nodes node = nodeList.get(0);
+		Long deviceId = node.getDevice().getDeviceId();
+		List<Status> sList = statusDao.findByLevel(vo.getLevel());
+		if(sList == null || sList.size()<=0)
+			throw new Exception("不存在该状态等级");
+		Status status = sList.get(0);
+		Long statusId = status.getStatusId();
+		deviceManagerServer.modifyDeviceState(deviceId, statusId);
+	}
+	
+	public void checkDeviceByNodeId(int NodeId) throws Exception{
+		Socket s = new Socket( "localhost", 10000 );
+		ClientHandler cHandler = new ClientHandler(s);
+		cHandler.start();
+		NodeVo vo = new NodeVo();
+		vo.setB(NodeId);
+		cHandler.sendInformation( new Information(3,vo) );
+	}
 }
