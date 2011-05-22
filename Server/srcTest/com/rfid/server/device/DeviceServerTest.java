@@ -123,7 +123,7 @@ public class DeviceServerTest extends MyLazyTestCase {
 //		d.setDeviceId(Long.parseLong("2002011042403393164"));
 //		vo.setDeviceVo(d);
 //		vo.setBuyer("周丽霞");
-		boolean list = server.deleteDeviceByDeviceId(
+		boolean list = server.deleteDeviceDetailByDeviceId(
 				Long.parseLong("2002011052007092251"));
 		assertTrue(list);
 	}

@@ -31,4 +31,6 @@ public interface DeviceManagerServer {
 	 * @throws Exception 
 	 */
 	void assignDeviceToUser(Long deviceId,Long userId) throws Exception;
+	
+	void monitorDeviceByDeviceId(Long deviceId) throws Exception;
 }

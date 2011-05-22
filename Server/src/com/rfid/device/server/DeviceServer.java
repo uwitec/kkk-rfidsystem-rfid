@@ -77,7 +77,7 @@ public interface DeviceServer {
 	 * @return
 	 * @throws Exception 
 	 */
-	boolean deleteDeviceByDeviceId(Long deviceId) throws Exception;
+	//boolean deleteDeviceByDeviceId(Long deviceId) throws Exception;
 	boolean deleteDeviceDetailByDeviceId(Long deviceId) throws Exception;
 	/**
 	 * 更新设备

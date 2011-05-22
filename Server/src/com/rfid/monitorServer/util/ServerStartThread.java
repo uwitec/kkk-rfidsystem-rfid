@@ -23,6 +23,11 @@ public class ServerStartThread extends Thread {
 //		aSocket.setSoTimeout(20000);
 		while(true){
 			ServerHandler sHandler = new ServerHandler( aSocket.accept() );
+			MapServerHandler.setServerHandler(sHandler);
+//			String readerIp;
+//			if(readerIp.indexOf("/")==0)
+//				readerIp = readerIp.substring(1,readerIp.length()).trim();
+//			addMapServerHandler(aSocket.getInetAddress())
 			sHandler.start();
 		}
 	}

@@ -204,6 +204,7 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 	public void updateDeviceState(NodeVo vo) throws Exception {
 		List<Nodes> nodeList = nodesDao.findByNodeId(vo.getB());
 		if(nodeList == null || nodeList.size()<=0)
+			//TODO 需要增加一个级别，检测到新的节点
 			throw new Exception("不存在该节点");
 		Nodes node = nodeList.get(0);
 		Long deviceId = node.getDevice().getDeviceId();
