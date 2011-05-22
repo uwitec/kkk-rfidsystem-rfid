@@ -177,7 +177,6 @@ public class NodesDaoImpl extends HibernateDaoSupport implements NodesDao {
 	}
 
 	public List<Nodes> findByDeviceId(Long deviceId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -130,8 +130,8 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 //		DeviceDetail dd = (DeviceDetail)device.getDeviceDetails().iterator().next();
 //		vo.setDeviceName()
 		//刚刚保存完，重新读取新的数据
-		NodeVo vo = nodesServer.findNodeByDeviceId(deviceId);
-		monitoreManagerServer.updateDeviceState(vo);
+//		NodeVo vo = nodesServer.findNodeByDeviceId(deviceId);
+//		monitoreManagerServer.updateDeviceState(vo);
 	}
 
 	public void assignDeviceToArea(Long deviceId, Long areaId) throws Exception {
@@ -213,6 +213,11 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 			du.setUsers(user);
 			deviceUserDao.save(du);
 		}
+	}
+
+	public void monitorDeviceByDeviceId(Long deviceId) throws Exception {
+		NodeVo vo = nodesServer.findNodeByDeviceId(deviceId);
+		monitoreManagerServer.checkDeviceByNodeId(vo.getB());
 	}
 
 	

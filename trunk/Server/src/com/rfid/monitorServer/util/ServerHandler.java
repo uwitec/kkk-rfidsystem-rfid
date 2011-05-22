@@ -138,7 +138,7 @@ public class ServerHandler extends Thread {
 	private Information checkState(NodeVo vo)throws Exception{
 		Information info = new Information();
 		info.setType(3);
-		info.setContent(vo.getB());
+		info.setContent(vo);
 		return info;
 	}
 	
@@ -151,7 +151,7 @@ public class ServerHandler extends Thread {
 	
 	public void run() { // 服务端处理器就绪时通知客户端处理器可以构建完成
 		System.out.println("I am ready");
-		while (flag) {
+		while (true) {
 			try {// 接收响应，在用户端的处理
 				Object obj = receiverQueue.take();// self-blocking to wait a
 				String readerIp = this.socket.getInetAddress().toString();
@@ -167,15 +167,17 @@ public class ServerHandler extends Thread {
 						break;
 					case 2:
 						NodeVo vo2 = (NodeVo) info.getContent();
-						if(vo2!=null)
-							updateState(vo2);
+//						if(vo2!=null)
+//							updateState(vo2);
+						monitorManagerServer.updateDeviceNameToNode(6, "陈伟豪");
 						flag = false;
 						break;
 					case 3:
 						NodeVo vo3 = (NodeVo) info.getContent();
 						if(vo3!=null){
 							info = checkState(vo3);
-							senderQueue.put(info);
+							MapServerHandler.getServerHandler().sendInformation(info);
+							//senderQueue.put(info);
 							flag = false;
 						}
 						break;
@@ -190,7 +192,7 @@ public class ServerHandler extends Thread {
 						NodeVo vo5 = (NodeVo) info.getContent();
 						if(vo5!=null){
 							info = updateDeviceName(vo5);
-							senderQueue.put(info);
+							MapServerHandler.getServerHandler().sendInformation(info);
 							flag = false;
 						}
 						break;

@@ -59,4 +59,6 @@ public interface UserServer {
 	
 	public void updateUserDetail(UserDetailVo vo) throws Exception;
 	
+	public void deleteUserDetialByUserId(Long userId) throws Exception;
+	
 }

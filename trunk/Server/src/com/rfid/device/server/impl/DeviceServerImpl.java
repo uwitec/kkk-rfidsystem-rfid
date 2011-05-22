@@ -15,10 +15,13 @@ import com.rfid.device.po.Device;
 import com.rfid.device.po.DeviceDetail;
 import com.rfid.device.po.DeviceStatus;
 import com.rfid.device.server.DeviceServer;
+import com.rfid.device.server.NodesServer;
 import com.rfid.device.vo.DeviceDetailVo;
 import com.rfid.device.vo.DeviceVo;
 import com.rfid.device.vo.StatusVo;
 import com.rfid.device.vo.VoToPoTools;
+import com.rfid.monitorServer.server.MonitorManagerServer;
+import com.rfid.monitorServer.vo.NodeVo;
 
 public class DeviceServerImpl implements DeviceServer {
 
@@ -26,7 +29,25 @@ public class DeviceServerImpl implements DeviceServer {
 	private DeviceDetailDao deviceDetailDao;
 	private AreaDao areaDao;
 	private DeviceStatusDao deviceStatusDao;
+	private MonitorManagerServer monitorManagerServer;
+	private NodesServer nodesServer;
 	
+	public NodesServer getNodesServer() {
+		return nodesServer;
+	}
+
+	public void setNodesServer(NodesServer nodesServer) {
+		this.nodesServer = nodesServer;
+	}
+
+	public MonitorManagerServer getMonitorManagerServer() {
+		return monitorManagerServer;
+	}
+
+	public void setMonitorManagerServer(MonitorManagerServer monitorManagerServer) {
+		this.monitorManagerServer = monitorManagerServer;
+	}
+
 	public AreaDao getAreaDao() {
 		return areaDao;
 	}
@@ -247,6 +268,8 @@ public class DeviceServerImpl implements DeviceServer {
 			Device device = this.findDeviceByDeviceId(deviceId);
 			device.setMonitorEnable(0);
 			deviceDao.save(device);
+			NodeVo vo = nodesServer.findNodeByDeviceId(deviceId);
+			monitorManagerServer.removeNodeMonitor(vo);
 			return true;
 		}catch(Exception ex)
 		{

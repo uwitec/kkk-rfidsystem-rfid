@@ -64,12 +64,10 @@ public class NodesServerImpl implements NodesServer {
 	}
 
 	public void checkNodesByDeivceId(Long deviceId) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public List<NodesVo> getAllNodeList() {
-		//TODO
 		return null;
 //		List<Nodes> nList = nodesDao.findAll();
 //		if(nList == null || nList.size()<=0)

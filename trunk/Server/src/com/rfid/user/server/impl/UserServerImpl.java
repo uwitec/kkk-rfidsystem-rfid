@@ -247,7 +247,6 @@ public class UserServerImpl implements UserServer {
 	}
 
 	public void updateUserDetail(UserDetailVo vo) throws Exception {
-		// TODO Auto-generated method stub
 		UsersVo userVo = vo.getUsersVo();
 		if(userVo==null || userVo.getUserid()==null || userVo.getUserid()<=0)
 			throw new Exception("请设置UserVo");
@@ -266,4 +265,17 @@ public class UserServerImpl implements UserServer {
 			ud.setUserName(vo.getUserName());
 		userDetailDao.update(ud);
 	}
+
+	public void deleteUserDetialByUserId(Long userId) throws Exception {
+		List<UserDetail> udList = userDetailDao.findByUserId(userId);
+		if(udList==null || udList.size()<=0)
+			throw new Exception("不存在该用户");
+		UserDetail ud = udList.get(0);
+		Users user = ud.getUsers();
+		userDetailDao.delete(ud);
+		user.setLoginName(user.getUserid().toString());
+		user.setLoginPassword(user.getUserid().toString());
+		usersDao.update(user);
+	}
+
 }
