@@ -41,4 +41,11 @@ public class MonitorServerTest extends TestCase {
 		vo.setLevel(5);
 		server.updateDeviceState(vo);
 	}
+	
+	public void testRemoveNodeMonitor() throws Exception{
+		MonitorManagerServer server 
+		= (MonitorManagerServer)SpringBeanUtils.getBean("monitorManagerServer");
+		NodeVo[] vos = server.getNodeArray("127.0.0.1");
+		server.removeNodeMonitor(vos[0]);
+	}
 }

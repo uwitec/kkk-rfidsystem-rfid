@@ -139,7 +139,6 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 			List<DeviceStatus> dsList = deviceStatusDao.findLastByAreaId(areaVo.getAreaId());
 			if(!this.hasObjectByList(dsList))
 				continue;
-//				throw new Exception("区域不存在监控设备");
 			for(DeviceStatus ds : dsList){
 				MonitorDeviceVo mdVo = new MonitorDeviceVo();
 				mdVo.setDeviceId(ds.getDevice().getDeviceId());
@@ -249,12 +248,31 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 	}
 
 	public void removeNodeMonitor(NodeVo vo) throws Exception {
-		// TODO Auto-generated method stub
 		Socket s = new Socket( "localhost", 10000 );
 		ClientHandler cHandler = new ClientHandler(s);
 		cHandler.start();
 		cHandler.sendInformation( new Information(7,vo) );
 		if(cHandler.getSenderQueue().isEmpty())
 			s.close();
+	}
+	
+	private void closeSocket(final Socket s){
+		Thread th = new Thread(){
+			@Override
+			public void run() {
+				while(true){
+					if(s.isConnected())
+					{
+						try {
+							s.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						break;
+					}
+				}
+			}
+		};
+		th.start();
 	}
 }

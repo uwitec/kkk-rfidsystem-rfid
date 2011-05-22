@@ -126,7 +126,7 @@ public class Device implements java.io.Serializable {
 			StatusVo statusVo = (StatusVo)this.getDeviceStatuses().toArray()[0];
 			vo.setStatusVo(statusVo);
 		}
-		if(this.getDeviceUsers().isEmpty() && this.getDeviceUsers().size()>0){
+		if(this.getDeviceUsers()!=null && this.getDeviceUsers().size()>0){
 			Iterator it = this.getDeviceUsers().iterator();
 			List<UsersVo> users = new ArrayList<UsersVo>();
 			while(it.hasNext()){
@@ -140,6 +140,16 @@ public class Device implements java.io.Serializable {
 			vo.setId(this.getId());
 		if(this.getMonitorEnable()!=null)
 			vo.setMonitorEnable(this.getMonitorEnable());
+		if(this.getDeviceStatuses()!=null && this.getDeviceStatuses().size()>0){
+			Iterator it = this.getDeviceStatuses().iterator();
+			StatusVo status = new StatusVo();
+			if(it.hasNext()){
+				DeviceStatus ds = (DeviceStatus)it.next();
+				Status s = ds.getStatus();
+				status = s.toStatusVo();
+			}
+			vo.setStatusVo(status);
+		}
 		return vo;
 	}
 

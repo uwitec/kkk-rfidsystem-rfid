@@ -17,6 +17,7 @@ import com.rfid.device.po.DeviceStatus;
 import com.rfid.device.server.DeviceServer;
 import com.rfid.device.vo.DeviceDetailVo;
 import com.rfid.device.vo.DeviceVo;
+import com.rfid.device.vo.StatusVo;
 import com.rfid.device.vo.VoToPoTools;
 
 public class DeviceServerImpl implements DeviceServer {
@@ -69,16 +70,22 @@ public class DeviceServerImpl implements DeviceServer {
 			throw new Exception("已存在该设备");
 		else{
 			d.setDeviceId(PoTools.getPoId(PoType.DeviceType));
+			d.setMonitorEnable(1);
 			deviceDao.save(d);
+			DeviceDetail dd = new DeviceDetail();
+			Device device = this.findDeviceByDeviceId(d.getDeviceId());
+			dd.setDevice(device);
+			deviceDetailDao.save(dd);
 			return d.getDeviceId();
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	private boolean hasDeviceByDeviceId(Long deviceId){
-		List dList = deviceDao.findByDeviceId(deviceId);
-		if(dList!=null && dList.size()>0)
+		List dList = deviceDao.findByMonitorEnable(deviceId);
+		if(dList!=null && dList.size()>0){
 			return true;
+		}
 		else
 			return false;
 	}
@@ -87,12 +94,11 @@ public class DeviceServerImpl implements DeviceServer {
 	public Long addDeviceDetail(DeviceDetailVo vo) throws Exception {
 		if(vo==null)
 			throw new Exception("输入对象为空");
-		
 		DeviceDetail dd = new DeviceDetail();
 		dd = VoToPoTools.toDeviceDetail(vo);
 		Long deviceId = null;
 		if(!this.hasDeviceByDeviceId(vo.getDeviceVo().getDeviceId()))
-		{
+		{//如果不存在则新建一个
 			deviceId = this.addDevice(vo.getDeviceVo());
 			if(deviceId == null || deviceId ==0)
 				throw new Exception("设备插入失败");
@@ -165,6 +171,9 @@ public class DeviceServerImpl implements DeviceServer {
 		DeviceDetail dd = deviceDetailDao.findByDeviceId(deviceId);
 		if(dd==null)
 			return null;
+		DeviceDetailVo vo = new DeviceDetailVo();
+//		DeviceVo deviceVo = dd.getDevice().toDeviceVo();
+//		StatusVo statusVo = 
 		return dd.toDeviceDetailVo();
 	}
 	
@@ -235,6 +244,9 @@ public class DeviceServerImpl implements DeviceServer {
 	public boolean deleteDeviceDetailByDeviceId(Long deviceId) throws Exception {
 		try{
 			deviceDetailDao.deleteByDeviceId(deviceId);
+			Device device = this.findDeviceByDeviceId(deviceId);
+			device.setMonitorEnable(0);
+			deviceDao.save(device);
 			return true;
 		}catch(Exception ex)
 		{
@@ -286,4 +298,11 @@ public class DeviceServerImpl implements DeviceServer {
 		return voList;
 	}
 
+	private Device findDeviceByDeviceId(Long deviceId) throws Exception{
+		List list = deviceDao.findByDeviceId(deviceId);
+		if(list==null || list.size()==0)
+			throw new Exception("不存在该设备");
+		Device device = (Device)list.get(0);
+		return device;
+	}
 }

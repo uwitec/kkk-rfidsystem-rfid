@@ -15,6 +15,9 @@ import com.rfid.device.po.DeviceStatus;
 import com.rfid.device.po.DeviceUser;
 import com.rfid.device.po.Status;
 import com.rfid.device.server.DeviceManagerServer;
+import com.rfid.device.server.NodesServer;
+import com.rfid.monitorServer.server.MonitorManagerServer;
+import com.rfid.monitorServer.vo.NodeVo;
 import com.rfid.user.dao.UsersDao;
 import com.rfid.user.po.Users;
 
@@ -26,8 +29,25 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 	private DeviceStatusDao deviceStatusDao;
 	private UsersDao usersDao;
 	private DeviceUserDao deviceUserDao;
+	private MonitorManagerServer monitoreManagerServer;
+	private NodesServer nodesServer;
 	
-	
+	public NodesServer getNodesServer() {
+		return nodesServer;
+	}
+
+	public void setNodesServer(NodesServer nodesServer) {
+		this.nodesServer = nodesServer;
+	}
+
+	public MonitorManagerServer getMonitoreManagerServer() {
+		return monitoreManagerServer;
+	}
+
+	public void setMonitoreManagerServer(MonitorManagerServer monitoreManagerServer) {
+		this.monitoreManagerServer = monitoreManagerServer;
+	}
+
 	public UsersDao getUsersDao() {
 		return usersDao;
 	}
@@ -106,6 +126,12 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 		ds.setStatus(status);
 		ds.setPreviousId(oldDs.getId());
 		deviceStatusDao.save(ds);
+		
+//		DeviceDetail dd = (DeviceDetail)device.getDeviceDetails().iterator().next();
+//		vo.setDeviceName()
+		//刚刚保存完，重新读取新的数据
+		NodeVo vo = nodesServer.findNodeByDeviceId(deviceId);
+		monitoreManagerServer.updateDeviceState(vo);
 	}
 
 	public void assignDeviceToArea(Long deviceId, Long areaId) throws Exception {
