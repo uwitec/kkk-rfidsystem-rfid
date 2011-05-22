@@ -17,6 +17,63 @@ public class ClientHandler extends Thread{
 	private boolean flag;
 	Information info;
 	
+	
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+
+	public BlockingQueue<Object> getSenderQueue() {
+		return senderQueue;
+	}
+
+	public void setSenderQueue(BlockingQueue<Object> senderQueue) {
+		this.senderQueue = senderQueue;
+	}
+
+	public BlockingQueue<Object> getReceiverQueue() {
+		return receiverQueue;
+	}
+
+	public void setReceiverQueue(BlockingQueue<Object> receiverQueue) {
+		this.receiverQueue = receiverQueue;
+	}
+
+	public Sender getaSender() {
+		return aSender;
+	}
+
+	public void setaSender(Sender aSender) {
+		this.aSender = aSender;
+	}
+
+	public Receiver getaReceiver() {
+		return aReceiver;
+	}
+
+	public void setaReceiver(Receiver aReceiver) {
+		this.aReceiver = aReceiver;
+	}
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
+	public Information getInfo() {
+		return info;
+	}
+
+	public void setInfo(Information info) {
+		this.info = info;
+	}
+
 	//构造一个Handler，接收信息
 	public ClientHandler(Socket aSocket) throws InterruptedException{
 		this.socket = aSocket;	

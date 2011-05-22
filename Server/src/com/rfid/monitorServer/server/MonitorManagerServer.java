@@ -25,4 +25,8 @@ public interface MonitorManagerServer {
 	void checkDeviceByNodeId(int NodeId) throws Exception;
 	
 	void updateDeviceNameToNode(int NodeId,String deviceName) throws Exception;
+	
+	void addNodeMonitor(NodeVo vo) throws Exception;
+	
+	void removeNodeMonitor(NodeVo vo) throws Exception;
 }
