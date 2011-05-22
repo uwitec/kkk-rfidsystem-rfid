@@ -3,6 +3,7 @@ package com.rfid.device.server;
 import java.util.List;
 
 import com.rfid.device.vo.NodesVo;
+import com.rfid.monitorServer.vo.NodeVo;
 
 public interface NodesServer {
 
@@ -11,4 +12,6 @@ public interface NodesServer {
 	List<NodesVo> getAllNodeList();
 	
 	void checkNodesByDeivceId(Long deviceId);
+
+	NodeVo findNodeByDeviceId(Long deviceId);
 }

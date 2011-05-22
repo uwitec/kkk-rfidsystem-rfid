@@ -26,4 +26,6 @@ public interface NodesDao {
 
 	public void attachClean(Nodes instance);
 
+	public List<Nodes> findByDeviceId(Long deviceId);
+
 }

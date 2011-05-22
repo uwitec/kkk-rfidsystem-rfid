@@ -65,7 +65,7 @@ public class DeviceDetail implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "deviceId",referencedColumnName="deviceId")
+	@JoinColumn(name = "deviceId",referencedColumnName="deviceId", nullable = false)
 	public Device getDevice() {
 		return this.device;
 	}

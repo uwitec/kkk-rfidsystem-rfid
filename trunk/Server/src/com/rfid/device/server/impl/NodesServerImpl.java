@@ -9,14 +9,27 @@ import com.rfid.device.dao.NodesDao;
 import com.rfid.device.po.Device;
 import com.rfid.device.po.DeviceDetail;
 import com.rfid.device.po.Nodes;
+import com.rfid.device.server.DeviceServer;
 import com.rfid.device.server.NodesServer;
+import com.rfid.device.vo.DeviceDetailVo;
 import com.rfid.device.vo.NodesVo;
+import com.rfid.monitorServer.vo.NodeVo;
 
 public class NodesServerImpl implements NodesServer {
 
 	private DeviceDao deviceDao;
 	private NodesDao nodesDao;
-	private DeviceDetailDao deviceDetailDao;
+	private DeviceServer deviceServer;
+	
+	public DeviceServer getDeviceServer() {
+		return deviceServer;
+	}
+
+	public void setDeviceServer(DeviceServer deviceServer) {
+		this.deviceServer = deviceServer;
+	}
+
+	
 	
 	public DeviceDao getDeviceDao() {
 		return deviceDao;
@@ -72,6 +85,19 @@ public class NodesServerImpl implements NodesServer {
 //			voList.add(vo);
 //		}
 //		return voList;
+	}
+
+	public NodeVo findNodeByDeviceId(Long deviceId) {
+		List<Nodes> nList = nodesDao.findByProperty("device.deviceId", deviceId);
+		if(nList == null || nList.size()<=0)
+			return null;
+		Nodes n = nList.get(0);
+		DeviceDetailVo dd = deviceServer.getDeviceDetailByDeviceId(deviceId);
+		NodeVo vo = new NodeVo();
+		vo.setB(n.getNodeId());
+		vo.setDeviceName(dd.getDeviceName());
+		vo.setLevel(dd.getDeviceVo().getStatusVo().getLevel());
+		return vo;
 	}
 
 }

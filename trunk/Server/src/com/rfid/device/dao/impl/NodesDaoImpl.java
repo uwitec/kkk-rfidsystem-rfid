@@ -175,4 +175,9 @@ public class NodesDaoImpl extends HibernateDaoSupport implements NodesDao {
 	public static NodesDao getFromApplicationContext(ApplicationContext ctx) {
 		return (NodesDao) ctx.getBean("NodesDAO");
 	}
+
+	public List<Nodes> findByDeviceId(Long deviceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

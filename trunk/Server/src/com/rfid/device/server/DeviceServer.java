@@ -62,7 +62,7 @@ public interface DeviceServer {
 	 * @return 增添成功返回增加了的deviceId，否则返回null
 	 * @throws Exception 
 	 */
-	Long addDevice(DeviceVo vo) throws Exception;
+	//Long addDevice(DeviceVo vo) throws Exception;
 	/**
 	 * 增加设备，以及详细信息
 	 * @param vo 设备相信信息
