@@ -223,6 +223,8 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 		NodeVo vo = new NodeVo();
 		vo.setB(NodeId);
 		cHandler.sendInformation( new Information(3,vo) );
+		if(cHandler.getSenderQueue().isEmpty())
+			s.close();
 	}
 	
 	public void updateDeviceNameToNode(int NodeId,String deviceName) throws Exception{
@@ -233,5 +235,26 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 		vo.setB(NodeId);
 		vo.setDeviceName(deviceName);
 		cHandler.sendInformation( new Information(5,vo) );
+		if(cHandler.getSenderQueue().isEmpty())
+			s.close();
+	}
+
+	public void addNodeMonitor(NodeVo vo) throws Exception {
+		Socket s = new Socket( "localhost", 10000 );
+		ClientHandler cHandler = new ClientHandler(s);
+		cHandler.start();
+		cHandler.sendInformation( new Information(6,vo) );
+		if(cHandler.getSenderQueue().isEmpty())
+			s.close();
+	}
+
+	public void removeNodeMonitor(NodeVo vo) throws Exception {
+		// TODO Auto-generated method stub
+		Socket s = new Socket( "localhost", 10000 );
+		ClientHandler cHandler = new ClientHandler(s);
+		cHandler.start();
+		cHandler.sendInformation( new Information(7,vo) );
+		if(cHandler.getSenderQueue().isEmpty())
+			s.close();
 	}
 }
