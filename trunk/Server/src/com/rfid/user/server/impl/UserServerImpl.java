@@ -224,7 +224,7 @@ public class UserServerImpl implements UserServer {
 				UserDetail ud = new UserDetail();
 				List userList = usersDao.findByUserid(userId);
 				if (userList == null || userList.size() <= 0)
-					return Long.parseLong("-1");
+					throw new Exception("保存出错");
 				Users user = (Users) userList.get(0);
 				ud.setUsers(user);
 				if (userDetailVo.getBirthday() != null)
@@ -240,7 +240,7 @@ public class UserServerImpl implements UserServer {
 				userDetailDao.save(ud);
 				return userId;
 			}
-			return Long.parseLong("-1");
+			throw new Exception("保存出错");
 		} catch (Exception ex) {
 			throw ex;
 		}

@@ -1,6 +1,7 @@
 package com.rfid.server.user;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.rfid.test.common.MyLazyTestCase;
@@ -57,9 +58,14 @@ public class UserServerTest extends MyLazyTestCase{
 	public void testRegUsersDetail() throws Exception{
 		UserServer server = (UserServer)SpringBeanUtils.getBean("userServer");
 		UsersVo vo = new UsersVo();
-		vo.setLoginName("cwh");
-		vo.setLoginPassword("cwh");
+		vo.setLoginName("cwh2");
+		vo.setLoginPassword("cwh2");
 		UserDetailVo udVo = new UserDetailVo();
+		udVo.setBirthday(new Date());
+		udVo.setConnection("cwh");
+		udVo.setRegisterTime(new Date());
+		udVo.setUserAddress("cwh");
+		udVo.setUserName("cwh");
 		udVo.setUsersVo(vo);
 		server.regUsersDetail(udVo);
 	}
