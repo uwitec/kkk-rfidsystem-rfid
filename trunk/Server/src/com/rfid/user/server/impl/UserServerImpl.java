@@ -255,6 +255,13 @@ public class UserServerImpl implements UserServer {
 		if(udList==null || udList.size()<=0)
 			throw new Exception("不存在该用户");
 		UserDetail ud = udList.get(0);
+		Users user = ud.getUsers();
+		if(vo.getUsersVo()!=null){
+			if(vo.getUsersVo().getLoginPassword()!=null){
+				user.setLoginPassword(vo.getUsersVo().getLoginPassword());
+				usersDao.update(user);
+			}
+		}
 		if(vo.getBirthday()!=null)
 			ud.setBirthday(new Timestamp(vo.getBirthday().getTime()));
 		if(vo.getConnection()!=null)

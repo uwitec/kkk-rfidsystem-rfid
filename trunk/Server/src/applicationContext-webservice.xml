@@ -6,8 +6,21 @@
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
 	default-autowire="byName">
 
+	<!-- 需要import下面这个xml文件 -->
+	<import resource="classpath:org/codehaus/xfire/spring/xfire.xml" />
+
 	<!--  -->
-	<bean name="baseService" class="org.codehaus.xfire.spring.ServiceBean" abstract="true">
+	<!-- 使用XFire导出器 -->
+	<bean id="baseWebService" class="org.codehaus.xfire.spring.remoting.XFireExporter"
+		lazy-init="false" abstract="true">
+		<!-- 引用xfire.xml中定义的工厂 -->
+		<property name="serviceFactory" ref="xfire.serviceFactory" />
+		<!-- 引用xfire.xml中的xfire实例 -->
+		<property name="xfire" ref="xfire" />
+	</bean>
+
+	<bean name="baseService" class="org.codehaus.xfire.spring.ServiceBean"
+		abstract="true">
 		<property name="inHandlers">
 			<list>
 				<ref bean="addressingHandler" />
