@@ -9,7 +9,7 @@
 	<bean id="userWebService" class="com.rfid.user.server.impl.UserServerImpl" />
 	<bean id="rolesWebService" class="com.rfid.user.server.impl.RolesServerImpl" />
 	
-	<!-- Junit测试时需要注释下面代码
+	<!-- Junit测试时需要注释下面代码-->
 	<bean name="userService" parent="baseService">
 		<property name="serviceBean" ref="userWebService" />
 		<property name="serviceClass" value="com.rfid.user.server.UserServer" />
@@ -18,5 +18,5 @@
 		<property name="serviceBean" ref="rolesWebService" />
 		<property name="serviceClass" value="com.rfid.user.server.RolesServer" />
 	</bean> 
-	-->
+	
 </beans>

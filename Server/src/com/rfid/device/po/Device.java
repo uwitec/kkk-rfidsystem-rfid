@@ -142,13 +142,16 @@ public class Device implements java.io.Serializable {
 			vo.setMonitorEnable(this.getMonitorEnable());
 		if(this.getDeviceStatuses()!=null && this.getDeviceStatuses().size()>0){
 			Iterator it = this.getDeviceStatuses().iterator();
-			StatusVo status = new StatusVo();
-			if(it.hasNext()){
+			StatusVo status = null;
+			while(it.hasNext()){
 				DeviceStatus ds = (DeviceStatus)it.next();
-				Status s = ds.getStatus();
-				status = s.toStatusVo();
+				if(ds.getIsEnable()==1){
+					Status s = ds.getStatus();
+					status = s.toStatusVo();
+				}
 			}
-			vo.setStatusVo(status);
+			if(status!=null)
+				vo.setStatusVo(status);
 		}
 		return vo;
 	}

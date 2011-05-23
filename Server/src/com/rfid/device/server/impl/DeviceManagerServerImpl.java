@@ -29,9 +29,18 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 	private DeviceStatusDao deviceStatusDao;
 	private UsersDao usersDao;
 	private DeviceUserDao deviceUserDao;
-	private MonitorManagerServer monitoreManagerServer;
+	private MonitorManagerServer monitorManagerServer;
 	private NodesServer nodesServer;
 	
+	
+	public MonitorManagerServer getMonitorManagerServer() {
+		return monitorManagerServer;
+	}
+
+	public void setMonitorManagerServer(MonitorManagerServer monitorManagerServer) {
+		this.monitorManagerServer = monitorManagerServer;
+	}
+
 	public NodesServer getNodesServer() {
 		return nodesServer;
 	}
@@ -40,13 +49,7 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 		this.nodesServer = nodesServer;
 	}
 
-	public MonitorManagerServer getMonitoreManagerServer() {
-		return monitoreManagerServer;
-	}
 
-	public void setMonitoreManagerServer(MonitorManagerServer monitoreManagerServer) {
-		this.monitoreManagerServer = monitoreManagerServer;
-	}
 
 	public UsersDao getUsersDao() {
 		return usersDao;
@@ -217,7 +220,7 @@ public class DeviceManagerServerImpl implements DeviceManagerServer {
 
 	public void monitorDeviceByDeviceId(Long deviceId) throws Exception {
 		NodeVo vo = nodesServer.findNodeByDeviceId(deviceId);
-		monitoreManagerServer.checkDeviceByNodeId(vo.getB());
+		monitorManagerServer.checkDeviceByNodeId(vo.getB());
 	}
 
 	
