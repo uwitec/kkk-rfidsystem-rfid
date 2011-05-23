@@ -219,7 +219,7 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 	public void checkDeviceByNodeId(int NodeId) throws Exception{
 		Socket s = new Socket( "localhost", 10000 );
 		ClientHandler cHandler = new ClientHandler(s);
-		cHandler.start();
+//		cHandler.start();
 		NodeVo vo = new NodeVo();
 		vo.setB(NodeId);
 		cHandler.sendInformation( new Information(3,vo) );
@@ -230,7 +230,7 @@ public class MonitorManagerServerImpl implements MonitorManagerServer {
 	public void updateDeviceNameToNode(int NodeId,String deviceName) throws Exception{
 		Socket s = new Socket( "localhost", 10000 );
 		ClientHandler cHandler = new ClientHandler(s);
-		cHandler.start();
+//		cHandler.start();
 		NodeVo vo = new NodeVo();
 		vo.setB(NodeId);
 		vo.setDeviceName(deviceName);

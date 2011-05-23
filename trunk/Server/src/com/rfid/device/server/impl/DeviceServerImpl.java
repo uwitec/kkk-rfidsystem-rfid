@@ -93,17 +93,17 @@ public class DeviceServerImpl implements DeviceServer {
 			d.setDeviceId(PoTools.getPoId(PoType.DeviceType));
 			d.setMonitorEnable(1);
 			deviceDao.save(d);
-			DeviceDetail dd = new DeviceDetail();
-			Device device = this.findDeviceByDeviceId(d.getDeviceId());
-			dd.setDevice(device);
-			deviceDetailDao.save(dd);
+//			DeviceDetail dd = new DeviceDetail();
+//			Device device = this.findDeviceByDeviceId(d.getDeviceId());
+//			dd.setDevice(device);
+//			deviceDetailDao.save(dd);
 			return d.getDeviceId();
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	private boolean hasDeviceByDeviceId(Long deviceId){
-		List dList = deviceDao.findByMonitorEnable(deviceId);
+		List dList = deviceDao.findByMonitorEnableByDeviceId(deviceId);
 		if(dList!=null && dList.size()>0){
 			return true;
 		}

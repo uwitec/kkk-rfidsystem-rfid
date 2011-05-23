@@ -202,5 +202,19 @@ public class DeviceDaoImpl extends HibernateGenericDao<Device, Long>
 		return (DeviceDao) ctx.getBean("DeviceDAO");
 	}
 
+	public List findByMonitorEnableByDeviceId(Long deviceId) {
+		log.debug("finding Device instance with property: deviceId" 
+				+ ", value: " + deviceId);
+		try {
+			String queryString = "from Device as model where " +
+					" model.deviceId " + "= ?"
+					+ " and model.monitorEnable " + "= 1" ;
+			return getHibernateTemplate().find(queryString, deviceId);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
 
 }
