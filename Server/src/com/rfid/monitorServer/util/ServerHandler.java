@@ -169,7 +169,7 @@ public class ServerHandler extends Thread {
 						NodeVo vo2 = (NodeVo) info.getContent();
 						if(vo2!=null)
 							updateState(vo2);
-//						monitorManagerServer.updateDeviceNameToNode(6, "陈伟豪");
+//						monitorManagerServer.updateDeviceNameToNode(6, "车读的成功");
 						flag = false;
 						break;
 					case 3:
