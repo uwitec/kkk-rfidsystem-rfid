@@ -20,8 +20,9 @@ public class deal extends Thread{
 	private boolean isRun;
 	private se se;
 	public HashMap map = new HashMap(); //((byte)id,node)
-	private ClientHandler cHandler;
+	public HashMap name = new HashMap(); //((byte)id,node)
 
+	private ClientHandler 	cHandler ;//= new ClientHandler( new Socket( "localhost", 10000 ) );
 
 	public void initall(){  //初始化所有属性
 		se = new se(blkq);
@@ -51,14 +52,18 @@ public class deal extends Thread{
 						for(int i = 0 ; i < ViVo.length; i++){
 							Node nd = new Node();
 							byte[] tmpid = intToBytes(ViVo[i].getB());
+							byte[] tmpna = new byte[6];
 							nd.IDset((int)tmpid[3]);
 							System.out.print("++++++++++tmpid:" + tmpid[0] + " " + tmpid[1] + " " + tmpid[2]+ " " +tmpid[3]);
 							nd.NodeIPset(new byte[]{(byte)tmpid[3], (byte)-1, (byte)-1, (byte)-1, (byte)tmpid[3]});
 							String tmp = ViVo[i].getDeviceName();
-							for(int k=0;k<(10-ViVo[i].getDeviceName().length());k++){
-								tmp+=" ";
+							int key =0;
+							for(int j = 0; j<6; j++){
+								tmpna[j] = tmp.getBytes()[j];
+								key += tmp.getBytes()[j]; 
 							}
-							nd.DataFieldset(tmp.getBytes());
+							name.put(key, tmp);
+							nd.DataFieldset(tmpna);
 							eq.NodeQueue.add(nd);
 							eq.map.put((byte)tmpid[3], nd);
 						}
@@ -213,13 +218,33 @@ public class deal extends Thread{
 					tmpn = (Node)equipment.map.get(dataPackage.nodeIP[0]);
 					if(tmpn != null){	//存在的节点
 						System.out.println("====================="+tmpn.IDget());
+						int key=0;
+						for(int jj=0 ; jj<6 ; jj++){
+							key += tmpn.DataField[jj];
+						}
+						String tt = (String)name.get(key);
+						if(tt != null){
+							System.out.println("================="+tt);
+						}
+//						try {
+//							String input = new String(dataPackage.dataField, "utf-8");
+//							System.out.println(input);
+//						} catch (UnsupportedEncodingException e) {
+//							e.printStackTrace();
+//						}
+						
 						tmpn.flag = 1;
-						tmpn.level = 5;
+						if(tmpn.level == 11){
+							NodeVo tmpcon = new NodeVo((int)tmpn.IDget(), tmpn.DataField.toString(), 9 );
+							cHandler.sendInformation( new Information(2,tmpcon) );
+							tmpn.level = 5;
+						}
 					}
 					else{//改 ，new Information 报告异常，新节点
-						tmpn.level = 0;
+						tmpn = new Node();
+						tmpn.level = 8;
 						System.out.println("=========NewNode=========");
-						NodeVo tmpcon = new NodeVo((int)dataPackage.nodeIP[0], tmpn.DataField.toString(), 0 );
+						NodeVo tmpcon = new NodeVo((int)dataPackage.nodeIP[0], dataPackage.dataField.toString(), 8 );
 						cHandler.sendInformation( new Information(2,tmpcon) );
 						//cHandler.sendInformation( new Information(2,null) );
 						
@@ -273,10 +298,17 @@ public class deal extends Thread{
 				if(tmpn.flag == 0){
 					System.out.println("++++++++++++++++++node:"+tmpn.IDget()+"warning!!!");
 					//改 发现异常  new Information
-					NodeVo tmpcon = new NodeVo((int)tmpn.IDget(), tmpn.DataField.toString(), 10 );
+					NodeVo tmpcon = new NodeVo((int)tmpn.IDget(), tmpn.DataField.toString(), 11 );
 					cHandler.sendInformation( new Information(2,tmpcon) );
-					tmpn.level = 10;
+					tmpn.level = 11;
 				}
+//				else{
+//					if(tmpn.level == 11){
+//						NodeVo tmpcon = new NodeVo((int)tmpn.IDget(), tmpn.DataField.toString(), 9 );
+//						cHandler.sendInformation( new Information(2,tmpcon) );
+//						tmpn.level = 5;
+//					}
+//				}
 				tmpn.flag = 0;
 			}
 
@@ -340,7 +372,7 @@ public class deal extends Thread{
 		//
 		//
 		//
-		if (equipment.Operational == rfidOperational.NULL)
+		//if (equipment.Operational == rfidOperational.NULL)
         {
 			equipment.Operational = rfidOperational.Edit;
 			SendData(equipment.Client, RfidOrder.GetPCInstrustion(PCInstructionType.Request_Communication));
@@ -425,7 +457,8 @@ public class deal extends Thread{
 				if(tmp==5){
 					equipment = EquipmentList.get(0);
 					Node nd = equipment.NodeQueue.get(0);
-					nd.DataFieldset(new byte[]{(byte)11, (byte)6, (byte)56, (byte)10, (byte)10, (byte)1});
+					
+					nd.DataFieldset(new byte[]{(byte)11, (byte)11, (byte)11, (byte)11, (byte)11, (byte)11});
 					equipment.PushEditNode(nd);
 				
 				}*/

@@ -91,7 +91,7 @@ public class Equipment
 			NodeQueue = new LinkedList<Node>();
             NodeOffset = null;
             Refresh_Cycle = 5;
-			ip = "202.192.32.10";
+			ip = "192.168.1.103";
 			Client = new Client(ip);
 			Client.Equipment = this;
             //_lReadTime = null;
