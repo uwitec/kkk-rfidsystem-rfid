@@ -10,7 +10,7 @@
 	
 	
 	<!-- Junit测试时需要注释下面代码-->
-	<bean name="monitorManagerService" parent="baseService">
+	<bean name="monitorManagerService" parent="baseWebService">
 		<property name="serviceBean" ref="monitorManagerWebService" />
 		<property name="serviceClass" value="com.rfid.monitorServer.server.MonitorManagerServer" />
 	</bean> 

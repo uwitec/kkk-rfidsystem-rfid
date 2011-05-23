@@ -15,27 +15,27 @@
 	
 	
 	<!-- Junit测试时需要注释下面代码-->
-	<bean name="areaService" parent="baseService">
+	<bean name="areaService" parent="baseWebService">
 		<property name="serviceBean" ref="areaWebService" />
 		<property name="serviceClass" value="com.rfid.device.server.AreaServer" />
 	</bean> 
-	<bean name="deviceManagerService" parent="baseService">
+	<bean name="deviceManagerService" parent="baseWebService">
 		<property name="serviceBean" ref="deviceManagerWebService" />
 		<property name="serviceClass" value="com.rfid.device.server.DeviceManagerServer" />
 	</bean> 
-	<bean name="deviceService" parent="baseService">
+	<bean name="deviceService" parent="baseWebService">
 		<property name="serviceBean" ref="deviceWebService" />
 		<property name="serviceClass" value="com.rfid.device.server.DeviceServer" />
 	</bean> 
-	<bean name="monitorService" parent="baseService">
+	<bean name="monitorService" parent="baseWebService">
 		<property name="serviceBean" ref="monitorWebService" />
 		<property name="serviceClass" value="com.rfid.device.server.MonitorServer" />
 	</bean> 
-	<bean name="readerService" parent="baseService">
+	<bean name="readerService" parent="baseWebService">
 		<property name="serviceBean" ref="readerWebService" />
 		<property name="serviceClass" value="com.rfid.device.server.ReaderServer" />
 	</bean> 
-	<bean name="statusService" parent="baseService">
+	<bean name="statusService" parent="baseWebService">
 		<property name="serviceBean" ref="statusWebService" />
 		<property name="serviceClass" value="com.rfid.device.server.StatusServer" />
 	</bean> 

@@ -116,8 +116,6 @@ public class ServerHandler extends Thread {
 		}
 
 	}
-
-	
 	
 	// ++001：reader访问中央服务器，
 	//* reader发送读写器的ip给中央服务器
@@ -149,6 +147,24 @@ public class ServerHandler extends Thread {
 		return info;
 	}
 	
+	private Information testRemoveDevice(){
+		NodeVo vo = new NodeVo();
+		vo.setB(6);
+		Information info = new Information();
+		info.setType(7);
+		info.setContent(vo);
+		return info;
+	}
+	
+	private Information testAddDevice(){
+		NodeVo vo = new NodeVo();
+		vo.setB(6);
+		Information info = new Information();
+		info.setType(8);
+		info.setContent(vo);
+		return info;
+	}
+	
 	public void run() { // 服务端处理器就绪时通知客户端处理器可以构建完成
 		System.out.println("I am ready");
 		while (true) {
@@ -167,9 +183,12 @@ public class ServerHandler extends Thread {
 						break;
 					case 2:
 						NodeVo vo2 = (NodeVo) info.getContent();
-						if(vo2!=null)
-							updateState(vo2);
+//						if(vo2!=null)
+//							updateState(vo2);
 //						monitorManagerServer.updateDeviceNameToNode(6, "车读的成功");
+						System.out.println("---------------------------------------------");
+						Information info2 = this.testRemoveDevice();
+						MapServerHandler.getServerHandler().sendInformation(info2);
 						flag = false;
 						break;
 					case 3:
