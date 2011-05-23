@@ -125,7 +125,7 @@ import java.net.*;
           public static boolean IsDataPackageInstrustion(byte[] readerBuff, int offset)
         {
 			  boolean flag = false; 
-            if (readerBuff.length < DataPackageLength  || readerBuff.length < DataPackageLengthlong)
+            if (readerBuff.length < DataPackageLength  && readerBuff.length < DataPackageLengthlong)
             {
                 return false;
             }
@@ -254,7 +254,7 @@ import java.net.*;
             {
                 rfidDataPackage.nodeIP[i] = readerBuff[offset + i + 13];
             }
-            for (int i = 0; i < 20; i++)                                     //获得数据域
+            for (int i = 0; i < 6; i++)                                     //获得数据域
             {
                 rfidDataPackage.dataField[i] = readerBuff[offset + i + 18];
             }
@@ -270,7 +270,7 @@ import java.net.*;
         {
             if (rfidDataPackage == null)
                 return null;
-            byte[] dataPackageInstrustion = new byte[40];
+            byte[] dataPackageInstrustion = new byte[26];
 
             for (int i = 0; i < DataPackageLength; i++) //复制模板
             {
@@ -287,7 +287,7 @@ import java.net.*;
             {
                 dataPackageInstrustion[i + 13] = rfidDataPackage.nodeIP[i];
             }
-            for (int i = 0; i < 20; i++)                                     //复制数据域
+            for (int i = 0; i < 6; i++)                                     //复制数据域
             {
                 dataPackageInstrustion[i + 18] = rfidDataPackage.dataField[i];
             }
@@ -314,7 +314,7 @@ import java.net.*;
         {
             readerIP = new byte[5];
             nodeIP = new byte[5];
-            dataField = new byte[20];
+            dataField = new byte[6];
         }
     }
     enum ReaderInstructionType
