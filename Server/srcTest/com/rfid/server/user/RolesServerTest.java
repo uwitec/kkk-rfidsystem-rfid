@@ -21,9 +21,9 @@ public class RolesServerTest extends TestCase {
 	public void testAddRole() throws Exception{
 		RolesServer server = (RolesServer)SpringBeanUtils.getBean("rolesServer");
 		RolesVo vo = new RolesVo();
-		vo.setRoleName("leader");
-		vo.setRoleNote("领导");
-		RoleType type = RoleType.LeaderType;
+		vo.setRoleName("DeviceAdmin");
+		vo.setRoleNote("设备管理员");
+		RoleType type = RoleType.DeviceType;
 		Long roleId = type.getInfo();
 		vo.setRoleId(roleId);
 		roleId = server.addRole(vo);

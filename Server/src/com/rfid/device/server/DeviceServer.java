@@ -57,6 +57,12 @@ public interface DeviceServer {
 	DeviceDetailVo getDeviceDetailByDeviceName(String deviceName);
 	
 	/**
+	 * @param areaId
+	 * @return
+	 * @throws Exception
+	 */
+	List<DeviceVo> getDeviceListByAreaId(Long areaId) throws Exception;
+	/**
 	 * 增加设备
 	 * @param vo 封装增添设备的信息
 	 * @return 增添成功返回增加了的deviceId，否则返回null
@@ -111,11 +117,4 @@ public interface DeviceServer {
 	 * @throws Exception 
 	 */
 	boolean setDeviceMonitorEnable(Long deviceId) throws Exception;
-	
-	/**
-	 * @param areaId
-	 * @return
-	 * @throws Exception
-	 */
-	List<DeviceVo> getDeviceListByAreaId(Long areaId) throws Exception;
 }

@@ -147,9 +147,7 @@ public class ServerHandler extends Thread {
 		return info;
 	}
 	
-	private Information testRemoveDevice(){
-		NodeVo vo = new NodeVo();
-		vo.setB(6);
+	private Information removeDevice(NodeVo vo){
 		Information info = new Information();
 		info.setType(7);
 		info.setContent(vo);
@@ -183,12 +181,12 @@ public class ServerHandler extends Thread {
 						break;
 					case 2:
 						NodeVo vo2 = (NodeVo) info.getContent();
-//						if(vo2!=null)
-//							updateState(vo2);
+						if(vo2!=null)
+							updateState(vo2);
 //						monitorManagerServer.updateDeviceNameToNode(6, "车读的成功");
-						System.out.println("---------------------------------------------");
-						Information info2 = this.testRemoveDevice();
-						MapServerHandler.getServerHandler().sendInformation(info2);
+//						System.out.println("---------------------------------------------");
+//						Information info2 = this.testRemoveDevice();
+//						MapServerHandler.getServerHandler().sendInformation(info2);
 						flag = false;
 						break;
 					case 3:
@@ -211,6 +209,14 @@ public class ServerHandler extends Thread {
 						NodeVo vo5 = (NodeVo) info.getContent();
 						if(vo5!=null){
 							info = updateDeviceName(vo5);
+							MapServerHandler.getServerHandler().sendInformation(info);
+							flag = false;
+						}
+						break;
+					case 7:
+						NodeVo vo7 = (NodeVo) info.getContent();
+						if(vo7!=null){
+							info = removeDevice(vo7);
 							MapServerHandler.getServerHandler().sendInformation(info);
 							flag = false;
 						}
