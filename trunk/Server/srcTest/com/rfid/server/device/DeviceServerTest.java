@@ -50,7 +50,7 @@ public class DeviceServerTest extends MyLazyTestCase {
 		DeviceServer server = (DeviceServer) SpringBeanUtils
 				.getBean("deviceServer");
 		DeviceDetailVo vo = server.getDeviceDetailByDeviceId(Long
-				.parseLong("2002011042403393163"));
+				.parseLong("2002011042403393164"));
 		assertNotNull(vo);
 		System.out.print(vo.getId());
 	}
@@ -62,6 +62,7 @@ public class DeviceServerTest extends MyLazyTestCase {
 		System.out.print(vo.getManufactory());
 		assertNotNull(vo);
 	}
+	
 
 //	public void testAddDevice() throws Exception {
 //		DeviceServer server = (DeviceServer) SpringBeanUtils
@@ -124,7 +125,7 @@ public class DeviceServerTest extends MyLazyTestCase {
 //		vo.setDeviceVo(d);
 //		vo.setBuyer("周丽霞");
 		boolean list = server.deleteDeviceDetailByDeviceId(
-				Long.parseLong("2002011052007092251"));
+				Long.parseLong("2002011042403393164"));
 		assertTrue(list);
 	}
 }

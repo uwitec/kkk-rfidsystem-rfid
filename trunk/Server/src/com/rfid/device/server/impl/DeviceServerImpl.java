@@ -192,7 +192,7 @@ public class DeviceServerImpl implements DeviceServer {
 		DeviceDetail dd = deviceDetailDao.findByDeviceId(deviceId);
 		if(dd==null)
 			return null;
-		DeviceDetailVo vo = new DeviceDetailVo();
+//		DeviceDetailVo vo = new DeviceDetailVo();
 //		DeviceVo deviceVo = dd.getDevice().toDeviceVo();
 //		StatusVo statusVo = 
 		return dd.toDeviceDetailVo();
@@ -255,6 +255,9 @@ public class DeviceServerImpl implements DeviceServer {
 			if(vo.getPurchaseDate()!=null)
 				dd.setPurchaseDate(new Timestamp(vo.getPurchaseDate().getTime()));
 			deviceDetailDao.update(dd);
+			NodeVo nodeVo = nodesServer.findNodeByDeviceId(deviceId);
+			if(nodeVo!=null)
+				monitorManagerServer.updateDeviceNameToNode(nodeVo.getB(), dd.getDeviceName());
 			return true;
 		}catch(Exception ex)
 		{	
@@ -264,12 +267,13 @@ public class DeviceServerImpl implements DeviceServer {
 
 	public boolean deleteDeviceDetailByDeviceId(Long deviceId) throws Exception {
 		try{
-			deviceDetailDao.deleteByDeviceId(deviceId);
+			NodeVo vo = nodesServer.findNodeByDeviceId(deviceId);
 			Device device = this.findDeviceByDeviceId(deviceId);
 			device.setMonitorEnable(0);
 			deviceDao.save(device);
-			NodeVo vo = nodesServer.findNodeByDeviceId(deviceId);
+			deviceDetailDao.deleteByDeviceId(deviceId);
 			monitorManagerServer.removeNodeMonitor(vo);
+			
 			return true;
 		}catch(Exception ex)
 		{
