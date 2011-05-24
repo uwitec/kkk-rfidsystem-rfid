@@ -10,9 +10,12 @@ public interface EnumConstant {
 	int READER_POTYPE_NO = 610;
 	int MONITOR_POTYPE_NO = 600;
 	
-	String ADMIN_TYPE_NO = "50001";
-	String USER_TYPE_NO = "50002";
-	String LEADER_TYPE_NO = "50005";
+	String ADMIN_TYPE_NO = "50001";//管理员
+	String USER_TYPE_NO = "50002";//用户（观察者）
+	String SUPER_TYPE_NO = "50003";//超级管理员
+	String SYSTEM_TYPE_NO = "50004";//系统管理员
+	String LEADER_TYPE_NO = "50005";//领导
+	String DEVICE_TYPE_NO = "50006";//设备管理员
 	
 	public enum RoleType{
 		AdminType{
@@ -31,6 +34,24 @@ public interface EnumConstant {
 			@Override
 			public Long getInfo() {
 				return Long.parseLong(LEADER_TYPE_NO);
+			}
+		}
+		,SuperType{
+			@Override
+			public Long getInfo() {
+				return Long.parseLong(SUPER_TYPE_NO);
+			}
+		}
+		,SystemType{
+			@Override
+			public Long getInfo() {
+				return Long.parseLong(SYSTEM_TYPE_NO);
+			}
+		}
+		,DeviceType{
+			@Override
+			public Long getInfo() {
+				return Long.parseLong(DEVICE_TYPE_NO);
 			}
 		};
 		public abstract Long getInfo();
